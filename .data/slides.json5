@@ -1,0 +1,32 @@
+{
+  "box_size": {
+    "percent_width": 75,
+    "percent_height": 65
+  },
+  "slides" : [
+    {
+      "title": "Ratatui",
+      "content": {
+        "type": "BigText",
+        "content": "BIGTEXT",
+        "rect": { "x": 5, "y": 5, "width": 50, "height": 60 }
+      }
+    },
+    {
+      "title": "Me",
+      "content": {
+        "type": "Paragraph",
+        "content": "[lukas@chleba]$ whoami",
+        "rect": { "x": 5, "y": 5, "width": 50, "height": 60 }
+      }
+    },
+    {
+      "title": "Me",
+      "content": {
+        "type": "Paragraph",
+        "content": "[lukas@chleba]$ whoami",
+        "rect": { "x": 5, "y": 5, "width": 50, "height": 60 }
+      }
+    }
+  ]
+}
