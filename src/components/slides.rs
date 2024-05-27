@@ -1,7 +1,6 @@
 use std::io::Read;
 
 use color_eyre::{eyre::Result, owo_colors::OwoColorize};
-// use crossterm::style::Stylize;
 use ratatui::{
     prelude::*,
     style::Stylize,
@@ -14,7 +13,7 @@ use tui_big_text::{BigText, PixelSize};
 use super::{Component, Frame};
 use crate::{
     action::Action,
-    enums::{ReturnSlideWidget, SlidesJson},
+    enums::{ContentJson, ReturnSlideWidget, SlidesJson},
     layout::{get_slides_layout, CONTENT_PERCENT_HEIGHT, CONTENT_PERCENT_WIDTH},
     slide_builder::make_slide_content,
 };
@@ -26,6 +25,7 @@ pub struct Slides {
     slide_index: usize,
     slide_count: usize,
     image: Option<Box<dyn StatefulProtocol>>,
+    images: Vec<Option<Box<dyn StatefulProtocol>>>,
 }
 
 impl Slides {
@@ -36,6 +36,7 @@ impl Slides {
             slide_index: 0,
             slide_count: 0,
             image: None,
+            images: Vec::new(),
         }
     }
 
@@ -55,14 +56,15 @@ impl Slides {
         }
     }
 
-    fn get_slide_rect(&self, rect: Rect) -> Rect {
+    fn get_slide_rect(&self, rect: Rect, item_rect: Option<Rect>) -> Rect {
         let mut slide_rect = Rect::new(rect.x, rect.y, rect.width, rect.height);
         if let Some(slides) = &self.slides {
-            let s_content_rect = slides.slides[self.slide_index].content.rect;
-            slide_rect.x += s_content_rect.x;
-            slide_rect.y += s_content_rect.y;
-            slide_rect.width = s_content_rect.width;
-            slide_rect.height = s_content_rect.height;
+            if let Some(s_content_rect) = item_rect {
+                slide_rect.x += s_content_rect.x;
+                slide_rect.y += s_content_rect.y;
+                slide_rect.width = s_content_rect.width;
+                slide_rect.height = s_content_rect.height;
+            }
         }
         slide_rect
     }
@@ -86,7 +88,9 @@ impl Slides {
     fn make_title(&self) -> BigText {
         let mut title_text = "__title__".to_string();
         if let Some(slides) = &self.slides {
-            title_text = slides.slides[self.slide_index].title.clone();
+            if let Some(t) = &slides.slides[self.slide_index].title {
+                title_text = t.to_string();
+            }
         }
 
         let big_title = BigText::builder()
@@ -116,12 +120,20 @@ impl Slides {
             )
     }
 
-    fn make_slide(&self) -> ReturnSlideWidget<'_> {
+    fn make_slide_items(&self) -> Vec<(ReturnSlideWidget<'_>, Option<Rect>)> {
         if let Some(slides) = &self.slides {
             let slide = slides.slides[self.slide_index].clone();
-            return make_slide_content(slide);
+            let mut slide_items = vec![];
+            for item in slide.content {
+                slide_items.push((make_slide_content(item.clone()), item.rect));
+            }
+            return slide_items;
         }
-        ReturnSlideWidget::Paragraph(Paragraph::new("__text__"))
+
+        vec![(
+            ReturnSlideWidget::Paragraph(Paragraph::new("__text__")),
+            None,
+        )]
     }
 }
 
@@ -133,7 +145,6 @@ impl Component for Slides {
 
     fn update(&mut self, action: Action) -> Result<Option<Action>> {
         match action {
-            Action::Tick => {}
             Action::Next => {
                 self.next_slide();
             }
@@ -160,25 +171,30 @@ impl Component for Slides {
             rect.content.width,
             rect.content.height,
         );
-        let slide_rect = self.get_slide_rect(rect.content);
 
         let title = self.make_title();
         let block = self.make_block();
-        let slides = self.make_slide();
+        let slide_items = self.make_slide_items();
 
         f.render_widget(title, title_rect);
         f.render_widget(block, rect.content);
 
         // -- render slide widgets
-        match slides {
-            ReturnSlideWidget::Paragraph(s) => {
-                f.render_widget(s, slide_rect);
-            }
-            ReturnSlideWidget::BigText(s) => {
-                f.render_widget(s, slide_rect);
+        for (slide, r) in slide_items {
+            let slide_rect = self.get_slide_rect(rect.content, r);
+            match slide {
+                ReturnSlideWidget::Paragraph(s) => {
+                    f.render_widget(s, slide_rect);
+                }
+                ReturnSlideWidget::Line(s) => {
+                    f.render_widget(s, slide_rect);
+                }
+                ReturnSlideWidget::BigText(s) => {
+                    f.render_widget(s, slide_rect);
+                }
+                _ => {}
             }
         }
-
         Ok(())
     }
 }
