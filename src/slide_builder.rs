@@ -42,12 +42,16 @@ fn make_slide_bigtext<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
 }
 
 pub fn make_slide_image<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
+    let mut rect = Rect::new(0, 0, 30, 20);
+    if let Some(r) = slide.rect {
+        rect = r;
+    }
     let content = get_slide_content_string(slide);
-    // let dyn_img = image 
+
     let dyn_img = image::io::Reader::open(content).unwrap().decode().unwrap();
     let mut picker = Picker::from_termios().unwrap();
     picker.guess_protocol();
-    let img_static = picker.new_protocol(dyn_img.clone(), Rect::new(0, 0, 30, 20), Resize::Fit(None)).unwrap();
+    let img_static = picker.new_protocol(dyn_img.clone(), Rect::new(0, 0, rect.width, rect.height), Resize::Fit(None)).unwrap();
     ReturnSlideWidget::Image(img_static)
 }
 
@@ -57,6 +61,5 @@ pub fn make_slide_content<'a>(slide_content: ContentJson) -> ReturnSlideWidget<'
         SlideContentType::BigText => make_slide_bigtext(slide_content),
         SlideContentType::Line => make_slide_line(slide_content),
         SlideContentType::Image => make_slide_image(slide_content),
-        // _ => ReturnSlideWidget::Paragraph(Paragraph::new("__text__")),
     }
 }

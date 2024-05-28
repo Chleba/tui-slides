@@ -17,6 +17,11 @@
           "type": "Paragraph",
           "content": "Terminal user interface library",
           "rect": { "x": 5, "y": 20, "width": 50, "height": 3 }
+        },
+        {
+          "type": "Image",
+          "content": ".data/images/demo.gif",
+          "rect": { "x": 10, "y": 10, "width": 50, "height": 50 }
         }
       ]
     },
