@@ -20,8 +20,13 @@
         },
         {
           "type": "Image",
-          "content": ".data/images/demo.gif",
-          "rect": { "x": 10, "y": 10, "width": 50, "height": 50 }
+          "content": ".data/images/bomb.png",
+          "rect": { "x": 0, "y": 0, "width": 15, "height": 15 }
+        },
+        {
+          "type": "Image",
+          "content": ".data/images/hex_red.png",
+          "rect": { "x": 40, "y": 30, "width": 20, "height": 20 }
         }
       ]
     },

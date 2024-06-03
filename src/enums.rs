@@ -1,5 +1,5 @@
 use ratatui::{layout::Rect, text::Line, widgets::Paragraph};
-use ratatui_image::protocol::Protocol;
+use ratatui_image::protocol::StatefulProtocol;
 use serde::{Deserialize, Serialize};
 use tui_big_text::BigText;
 
@@ -8,7 +8,7 @@ pub enum ReturnSlideWidget<'a> {
     Paragraph(Paragraph<'a>),
     BigText(BigText<'a>),
     Line(Line<'a>),
-    Image(Box<dyn Protocol>),
+    Image(Box<dyn StatefulProtocol>),
 }
 
 #[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]

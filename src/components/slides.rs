@@ -6,7 +6,7 @@ use ratatui::{
     style::Stylize,
     widgets::{block::Title, *},
 };
-use ratatui_image::{protocol::StatefulProtocol, StatefulImage, Image};
+use ratatui_image::{protocol::StatefulProtocol, StatefulImage, Image, Resize};
 use tokio::sync::mpsc::UnboundedSender;
 use tui_big_text::{BigText, PixelSize};
 
@@ -192,9 +192,9 @@ impl Component for Slides {
                 ReturnSlideWidget::BigText(s) => {
                     f.render_widget(s, slide_rect);
                 }
-                ReturnSlideWidget::Image(s) => {
-                    let img = Image::new(s.as_ref());
-                    f.render_widget(img, slide_rect);
+                ReturnSlideWidget::Image(mut s) => {
+                    let img = StatefulImage::new(None).resize(Resize::Crop);
+                    f.render_stateful_widget(img, slide_rect, &mut s);
                 }
                 // _ => {}
             }
