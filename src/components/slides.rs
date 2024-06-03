@@ -18,15 +18,12 @@ use crate::{
     slide_builder::{get_slide_content_string, make_slide_content},
 };
 
-// #[derive(Default)]
 pub struct Slides {
     action_tx: Option<UnboundedSender<Action>>,
     slides: Option<SlidesJson>,
     slide_index: usize,
     slide_count: usize,
     picker: Picker,
-    // image: Option<Box<dyn StatefulProtocol>>,
-    images: Vec<Box<dyn StatefulProtocol>>,
 }
 
 impl Default for Slides {
@@ -43,8 +40,6 @@ impl Slides {
             slide_index: 0,
             slide_count: 0,
             picker: Picker::from_termios().unwrap(),
-            // image: None,
-            images: Vec::new(),
         }
     }
 
@@ -85,24 +80,6 @@ impl Slides {
             }
         }
         slide_rect
-    }
-
-    fn store_images(&mut self) {
-        self.images.clear();
-
-        if let Some(slides) = &self.slides {
-            let slide = slides.slides[self.slide_index].clone();
-            for item in slide.content {
-                if item.type_ == SlideContentType::Image {
-                    let content = get_slide_content_string(item);
-                    let dyn_img = image::io::Reader::open(content).unwrap().decode().unwrap();
-                    let mut picker = Picker::from_termios().unwrap();
-                    picker.guess_protocol();
-                    let img_static = picker.new_resize_protocol(dyn_img);
-                    self.images.push(img_static);
-                }
-            }
-        }
     }
 
     fn next_slide(&mut self) {
@@ -199,10 +176,8 @@ impl Component for Slides {
             rect.content.height,
         );
 
-        self.store_images();
         let slide = self.get_slide();
 
-        // let slide_items = self.make_slide_items();
         let slide_items = Self::make_slide_items(&slide);
         let title = Self::make_title(&slide);
         let block = self.make_block();
@@ -211,7 +186,6 @@ impl Component for Slides {
         f.render_widget(block, rect.content);
 
         // -- render slide widgets
-        let mut img_index = 0;
         for (slide, r) in slide_items {
             let slide_rect = self.get_slide_rect(rect.content, r);
             match slide {
@@ -225,29 +199,10 @@ impl Component for Slides {
                     f.render_widget(s, slide_rect);
                 }
                 ReturnSlideWidget::Image(s) => {
-                    let dyn_img = image::io::Reader::open(s).unwrap().decode().unwrap();
-                    // let mut picker = Picker::from_termios().unwrap();
-                    // picker.guess_protocol();
-                    // let img_static = picker.new_protocol(dyn_img.clone(), Rect::new(0, 0, rect.width, rect.height), Resize::Fit(None)).unwrap();
-                    // let img_static = picker.new_protocol(dyn_img.clone(), Rect::new(0, 0, rect.width, rect.height), Resize::Fit(None)).unwrap();
-                    let mut img_static = self.picker.new_resize_protocol(dyn_img);
-                    // ReturnSlideWidget::Image(img_static)
-                    // ReturnSlideWidget::Image(dyn_img)
-
-                    // let mut img_static = self.images[img_index].clone();
-                    let img = StatefulImage::new(None).resize(Resize::Crop);
+                    let mut img_static = self.picker.new_resize_protocol(s);
+                    let img = StatefulImage::new(None).resize(Resize::Fit(None));
                     f.render_stateful_widget(img, slide_rect, &mut img_static);
-
-                    // img_index += 1;
-
-                    // let mut picker = Picker::from_termios().unwrap();
-                    // picker.guess_protocol();
-                    // // let img_static = picker.new_protocol(dyn_img.clone(), Rect::new(0, 0, rect.width, rect.height), Resize::Fit(None)).unwrap();
-                    // // let img_static = picker.new_protocol(dyn_img.clone(), Rect::new(0, 0, rect.width, rect.height), Resize::Fit(None)).unwrap();
-                    // let mut img_static = picker.new_resize_protocol(s);
-                    // let img = StatefulImage::new(None).resize(Resize::Crop);
-                    // f.render_stateful_widget(img, slide_rect, &mut img_static);
-                } // _ => {}
+                }
             }
         }
         Ok(())
