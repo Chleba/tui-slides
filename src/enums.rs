@@ -1,3 +1,4 @@
+use image::DynamicImage;
 use ratatui::{layout::Rect, text::Line, widgets::Paragraph};
 use ratatui_image::protocol::StatefulProtocol;
 use serde::{Deserialize, Serialize};
@@ -8,7 +9,9 @@ pub enum ReturnSlideWidget<'a> {
     Paragraph(Paragraph<'a>),
     BigText(BigText<'a>),
     Line(Line<'a>),
-    Image(Box<dyn StatefulProtocol>),
+    // Image(Box<dyn StatefulProtocol>),
+    // Image(DynamicImage),
+    Image(String),
 }
 
 #[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]

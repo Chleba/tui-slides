@@ -6,26 +6,33 @@ use ratatui::{
     style::Stylize,
     widgets::{block::Title, *},
 };
-use ratatui_image::{protocol::StatefulProtocol, StatefulImage, Image, Resize};
+use ratatui_image::{picker::Picker, protocol::StatefulProtocol, Image, Resize, StatefulImage};
 use tokio::sync::mpsc::UnboundedSender;
 use tui_big_text::{BigText, PixelSize};
 
 use super::{Component, Frame};
 use crate::{
     action::Action,
-    enums::{ContentJson, ReturnSlideWidget, SlidesJson},
+    enums::{ContentJson, ReturnSlideWidget, SlideContentType, SlideJson, SlidesJson},
     layout::{get_slides_layout, CONTENT_PERCENT_HEIGHT, CONTENT_PERCENT_WIDTH},
-    slide_builder::make_slide_content,
+    slide_builder::{get_slide_content_string, make_slide_content},
 };
 
-#[derive(Default)]
+// #[derive(Default)]
 pub struct Slides {
     action_tx: Option<UnboundedSender<Action>>,
     slides: Option<SlidesJson>,
     slide_index: usize,
     slide_count: usize,
-    image: Option<Box<dyn StatefulProtocol>>,
-    images: Vec<Option<Box<dyn StatefulProtocol>>>,
+    picker: Picker,
+    // image: Option<Box<dyn StatefulProtocol>>,
+    images: Vec<Box<dyn StatefulProtocol>>,
+}
+
+impl Default for Slides {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl Slides {
@@ -35,7 +42,8 @@ impl Slides {
             slides: None,
             slide_index: 0,
             slide_count: 0,
-            image: None,
+            picker: Picker::from_termios().unwrap(),
+            // image: None,
             images: Vec::new(),
         }
     }
@@ -56,6 +64,16 @@ impl Slides {
         }
     }
 
+    fn get_slide(&self) -> SlideJson {
+        if let Some(slides) = &self.slides {
+            return slides.slides[self.slide_index].clone();
+        }
+        SlideJson {
+            title: None,
+            content: vec![],
+        }
+    }
+
     fn get_slide_rect(&self, rect: Rect, item_rect: Option<Rect>) -> Rect {
         let mut slide_rect = Rect::new(rect.x, rect.y, rect.width, rect.height);
         if let Some(slides) = &self.slides {
@@ -67,6 +85,24 @@ impl Slides {
             }
         }
         slide_rect
+    }
+
+    fn store_images(&mut self) {
+        self.images.clear();
+
+        if let Some(slides) = &self.slides {
+            let slide = slides.slides[self.slide_index].clone();
+            for item in slide.content {
+                if item.type_ == SlideContentType::Image {
+                    let content = get_slide_content_string(item);
+                    let dyn_img = image::io::Reader::open(content).unwrap().decode().unwrap();
+                    let mut picker = Picker::from_termios().unwrap();
+                    picker.guess_protocol();
+                    let img_static = picker.new_resize_protocol(dyn_img);
+                    self.images.push(img_static);
+                }
+            }
+        }
     }
 
     fn next_slide(&mut self) {
@@ -85,12 +121,10 @@ impl Slides {
         self.slide_index = s_index;
     }
 
-    fn make_title(&self) -> BigText {
+    fn make_title<'a>(slide: &SlideJson) -> BigText<'a> {
         let mut title_text = "__title__".to_string();
-        if let Some(slides) = &self.slides {
-            if let Some(t) = &slides.slides[self.slide_index].title {
-                title_text = t.to_string();
-            }
+        if let Some(title) = &slide.title {
+            title_text = title.to_owned();
         }
 
         let big_title = BigText::builder()
@@ -120,25 +154,18 @@ impl Slides {
             )
     }
 
-    fn make_slide_items(&self) -> Vec<(ReturnSlideWidget<'_>, Option<Rect>)> {
-        if let Some(slides) = &self.slides {
-            let slide = slides.slides[self.slide_index].clone();
-            let mut slide_items = vec![];
-            for item in slide.content {
-                slide_items.push((make_slide_content(item.clone()), item.rect));
-            }
-            return slide_items;
+    fn make_slide_items<'a>(slide: &SlideJson) -> Vec<(ReturnSlideWidget<'a>, Option<Rect>)> {
+        let mut slide_items = vec![];
+        for item in &slide.content {
+            slide_items.push((make_slide_content(item.clone()), item.rect));
         }
-
-        vec![(
-            ReturnSlideWidget::Paragraph(Paragraph::new("__text__")),
-            None,
-        )]
+        slide_items
     }
 }
 
 impl Component for Slides {
     fn init(&mut self, area: Rect) -> Result<()> {
+        self.picker.guess_protocol();
         self.get_json_slides();
         Ok(())
     }
@@ -172,14 +199,19 @@ impl Component for Slides {
             rect.content.height,
         );
 
-        let title = self.make_title();
+        self.store_images();
+        let slide = self.get_slide();
+
+        // let slide_items = self.make_slide_items();
+        let slide_items = Self::make_slide_items(&slide);
+        let title = Self::make_title(&slide);
         let block = self.make_block();
-        let slide_items = self.make_slide_items();
 
         f.render_widget(title, title_rect);
         f.render_widget(block, rect.content);
 
         // -- render slide widgets
+        let mut img_index = 0;
         for (slide, r) in slide_items {
             let slide_rect = self.get_slide_rect(rect.content, r);
             match slide {
@@ -192,13 +224,32 @@ impl Component for Slides {
                 ReturnSlideWidget::BigText(s) => {
                     f.render_widget(s, slide_rect);
                 }
-                ReturnSlideWidget::Image(mut s) => {
+                ReturnSlideWidget::Image(s) => {
+                    let dyn_img = image::io::Reader::open(s).unwrap().decode().unwrap();
+                    // let mut picker = Picker::from_termios().unwrap();
+                    // picker.guess_protocol();
+                    // let img_static = picker.new_protocol(dyn_img.clone(), Rect::new(0, 0, rect.width, rect.height), Resize::Fit(None)).unwrap();
+                    // let img_static = picker.new_protocol(dyn_img.clone(), Rect::new(0, 0, rect.width, rect.height), Resize::Fit(None)).unwrap();
+                    let mut img_static = self.picker.new_resize_protocol(dyn_img);
+                    // ReturnSlideWidget::Image(img_static)
+                    // ReturnSlideWidget::Image(dyn_img)
+
+                    // let mut img_static = self.images[img_index].clone();
                     let img = StatefulImage::new(None).resize(Resize::Crop);
-                    f.render_stateful_widget(img, slide_rect, &mut s);
-                }
-                // _ => {}
+                    f.render_stateful_widget(img, slide_rect, &mut img_static);
+
+                    // img_index += 1;
+
+                    // let mut picker = Picker::from_termios().unwrap();
+                    // picker.guess_protocol();
+                    // // let img_static = picker.new_protocol(dyn_img.clone(), Rect::new(0, 0, rect.width, rect.height), Resize::Fit(None)).unwrap();
+                    // // let img_static = picker.new_protocol(dyn_img.clone(), Rect::new(0, 0, rect.width, rect.height), Resize::Fit(None)).unwrap();
+                    // let mut img_static = picker.new_resize_protocol(s);
+                    // let img = StatefulImage::new(None).resize(Resize::Crop);
+                    // f.render_stateful_widget(img, slide_rect, &mut img_static);
+                } // _ => {}
             }
         }
         Ok(())
     }
-} 
+}

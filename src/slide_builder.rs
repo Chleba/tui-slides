@@ -7,7 +7,7 @@ use ratatui::{
 use ratatui_image::{picker:: Picker, Resize, Image, StatefulImage};
 use tui_big_text::BigText;
 
-fn get_slide_content_string(slide: ContentJson) -> String {
+pub fn get_slide_content_string(slide: ContentJson) -> String {
     let mut content_str = String::from("");
     if let Some(cv) = slide.content {
         content_str = cv;
@@ -48,13 +48,16 @@ pub fn make_slide_image<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
     // }
     let content = get_slide_content_string(slide);
 
-    let dyn_img = image::io::Reader::open(content).unwrap().decode().unwrap();
-    let mut picker = Picker::from_termios().unwrap();
-    picker.guess_protocol();
+    ReturnSlideWidget::Image(content)
+
+    // let dyn_img = image::io::Reader::open(content).unwrap().decode().unwrap();
+    // let mut picker = Picker::from_termios().unwrap();
+    // picker.guess_protocol();
     // let img_static = picker.new_protocol(dyn_img.clone(), Rect::new(0, 0, rect.width, rect.height), Resize::Fit(None)).unwrap();
     // let img_static = picker.new_protocol(dyn_img.clone(), Rect::new(0, 0, rect.width, rect.height), Resize::Fit(None)).unwrap();
-    let img_static = picker.new_resize_protocol(dyn_img);
-    ReturnSlideWidget::Image(img_static)
+    // let img_static = picker.new_resize_protocol(dyn_img);
+    // ReturnSlideWidget::Image(img_static)
+    // ReturnSlideWidget::Image(dyn_img)
 }
 
 pub fn make_slide_content<'a>(slide_content: ContentJson) -> ReturnSlideWidget<'a> {
