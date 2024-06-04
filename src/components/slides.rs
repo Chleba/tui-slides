@@ -16,7 +16,7 @@ use crate::{
     action::Action,
     enums::{ContentJson, ReturnSlideWidget, SlideContentType, SlideJson, SlidesJson},
     layout::{get_slides_layout, CONTENT_PERCENT_HEIGHT, CONTENT_PERCENT_WIDTH},
-    slide_builder::{get_slide_content_string, make_slide_content},
+    slide_builder::{get_slide_content_string, make_slide_content, make_slide_image},
 };
 
 pub struct Slides {
@@ -26,6 +26,7 @@ pub struct Slides {
     slide_index: usize,
     slide_count: usize,
     picker: Picker,
+    images: Vec<Box<dyn StatefulProtocol>>,
 }
 
 impl Default for Slides {
@@ -43,6 +44,7 @@ impl Slides {
             slide_index: 0,
             slide_count: 0,
             picker: Picker::from_termios().unwrap(),
+            images: vec![],
         }
     }
 
@@ -86,10 +88,30 @@ impl Slides {
         slide_rect
     }
 
+    fn store_images(&mut self) {
+        self.images.clear();
+
+        let f_path = Path::new(&self.json_slides);
+        let img_path = f_path.parent().unwrap();
+        let slide = self.get_slide();
+
+        for item in slide.content {
+            if item.type_ == SlideContentType::Image {
+                let d_img = make_slide_image(item, self.json_slides.clone());
+                if let ReturnSlideWidget::Image(dyn_img) = d_img {
+                    let img_static = self.picker.new_resize_protocol(dyn_img);
+                    self.images.push(img_static);
+                }
+            }
+        }
+    }
+
     fn next_slide(&mut self) {
         let mut s_index = self.slide_index + 1;
         s_index %= self.slide_count;
         self.slide_index = s_index;
+
+        self.store_images();
     }
 
     fn previous_slide(&mut self) {
@@ -100,6 +122,8 @@ impl Slides {
             s_index -= 1;
         }
         self.slide_index = s_index;
+
+        self.store_images();
     }
 
     fn make_title<'a>(slide: &SlideJson) -> BigText<'a> {
@@ -155,6 +179,7 @@ impl Component for Slides {
         self.json_slides = json_slides;
         self.picker.guess_protocol();
         self.get_json_slides();
+        self.store_images();
         Ok(())
     }
 
@@ -197,6 +222,7 @@ impl Component for Slides {
         f.render_widget(block, rect.content);
 
         // -- render slide widgets
+        let mut img_index = 0;
         for (slide, r) in slide_items {
             let slide_rect = self.get_slide_rect(rect.content, r);
             match slide {
@@ -210,9 +236,11 @@ impl Component for Slides {
                     f.render_widget(s, slide_rect);
                 }
                 ReturnSlideWidget::Image(s) => {
-                    let mut img_static = self.picker.new_resize_protocol(s);
+                    let mut img_static = self.images[img_index].clone();
+                    // let mut img_static = self.picker.new_resize_protocol(s);
                     let img = StatefulImage::new(None).resize(Resize::Fit(None));
                     f.render_stateful_widget(img, slide_rect, &mut img_static);
+                    img_index += 1;
                 }
                 ReturnSlideWidget::Block(s) => {
                     f.render_widget(s, slide_rect);

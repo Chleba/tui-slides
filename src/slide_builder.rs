@@ -47,7 +47,7 @@ fn make_slide_bigtext<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
     )
 }
 
-fn make_slide_image<'a>(slide: ContentJson, slide_path: String) -> ReturnSlideWidget<'a> {
+pub fn make_slide_image<'a>(slide: ContentJson, slide_path: String) -> ReturnSlideWidget<'a> {
     let f_path = Path::new(&slide_path);
     let img_path = f_path.parent().unwrap();
     let content = get_slide_content_string(slide);
