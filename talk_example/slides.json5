@@ -1,0 +1,44 @@
+{
+  "box_size": {
+    "percent_width": 75,
+    "percent_height": 65
+  },
+
+  "slides" : [
+    {
+      "title": "RATATUI",
+      "content": [
+        {
+          "type": "BigText",
+          "content": "BIGTEXT",
+          "rect": { "x": 5, "y": 5, "width": 50, "height": 6 }
+        },
+        {
+          "type": "Paragraph",
+          "content": "Terminal user interface library",
+          "rect": { "x": 5, "y": 20, "width": 50, "height": 3 }
+        },
+        {
+          "type": "Image",
+          "content": "./images/bomb.png",
+          "rect": { "x": 0, "y": 0, "width": 15, "height": 15 }
+        },
+        {
+          "type": "Image",
+          "content": "./images/hex_red.png",
+          "rect": { "x": 40, "y": 30, "width": 20, "height": 20 }
+        }
+      ]
+    },
+    {
+      "title": ":$ whoami",
+      "content": [
+        {
+          "type": "Line",
+          "content": "Lukas Chleba",
+          "rect": { "x": 5, "y": 5, "width": 50, "height": 3 }
+        }
+      ]
+    }
+  ]
+}

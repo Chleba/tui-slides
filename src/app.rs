@@ -16,6 +16,7 @@ pub struct App {
     pub config: Config,
     pub tick_rate: f64,
     pub frame_rate: f64,
+    pub json_slides: String,
     pub components: Vec<Box<dyn Component>>,
     pub should_quit: bool,
     pub should_suspend: bool,
@@ -24,7 +25,7 @@ pub struct App {
 }
 
 impl App {
-    pub fn new(tick_rate: f64, frame_rate: f64) -> Result<Self> {
+    pub fn new(tick_rate: f64, frame_rate: f64, json_slides: String) -> Result<Self> {
         let title = Title::new();
         let slides = Slides::new();
         let config = Config::new()?;
@@ -33,6 +34,7 @@ impl App {
         Ok(Self {
             tick_rate,
             frame_rate,
+            json_slides,
             components: vec![Box::new(title), Box::new(slides)],
             should_quit: false,
             should_suspend: false,
@@ -60,7 +62,7 @@ impl App {
         }
 
         for component in self.components.iter_mut() {
-            component.init(tui.size()?)?;
+            component.init(tui.size()?, self.json_slides.clone())?;
         }
 
         loop {

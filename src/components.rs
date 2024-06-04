@@ -51,7 +51,7 @@ pub trait Component {
   /// # Returns
   ///
   /// * `Result<()>` - An Ok result or an error.
-  fn init(&mut self, area: Rect) -> Result<()> {
+  fn init(&mut self, area: Rect, json_slides: String) -> Result<()> {
     Ok(())
   }
   /// Handle incoming events and produce actions if necessary.

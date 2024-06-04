@@ -24,4 +24,13 @@ pub struct Cli {
         default_value_t = 4.0
     )]
     pub frame_rate: f64,
+
+    #[arg(
+        short,
+        long = "json",
+        value_name = "PATH",
+        help = "Path to slides JSON file along with images folder",
+        default_value = ".data/slides.json5"
+    )]
+    pub json_slides: String,
 }

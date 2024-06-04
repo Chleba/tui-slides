@@ -1,4 +1,5 @@
 use std::io::Read;
+use std::path::Path;
 
 use color_eyre::{eyre::Result, owo_colors::OwoColorize};
 use ratatui::{
@@ -20,6 +21,7 @@ use crate::{
 
 pub struct Slides {
     action_tx: Option<UnboundedSender<Action>>,
+    json_slides: String,
     slides: Option<SlidesJson>,
     slide_index: usize,
     slide_count: usize,
@@ -36,6 +38,7 @@ impl Slides {
     pub fn new() -> Self {
         Self {
             action_tx: None,
+            json_slides: String::from(""),
             slides: None,
             slide_index: 0,
             slide_count: 0,
@@ -44,10 +47,11 @@ impl Slides {
     }
 
     fn get_json_slides(&mut self) {
-        let mut f =
-            std::fs::File::open(".data/slides.json5").expect("Failed to open slides json file");
-        // let data_dir = crate::utils::get_data_dir();
-        // let mut f = std::fs::File::open(data_dir.join("slides.json5")).expect("Failed to open slides json file");
+        let error_string = format!(
+            "file: '{}' failed to open slides json file",
+            self.json_slides
+        );
+        let mut f = std::fs::File::open(self.json_slides.clone()).expect(&error_string);
         let mut f_content = String::new();
         f.read_to_string(&mut f_content)
             .expect("Failed to read json slides file");
@@ -131,17 +135,24 @@ impl Slides {
             )
     }
 
-    fn make_slide_items<'a>(slide: &SlideJson) -> Vec<(ReturnSlideWidget<'a>, Option<Rect>)> {
+    fn make_slide_items<'a>(
+        slide: &SlideJson,
+        json_slides: String,
+    ) -> Vec<(ReturnSlideWidget<'a>, Option<Rect>)> {
         let mut slide_items = vec![];
         for item in &slide.content {
-            slide_items.push((make_slide_content(item.clone()), item.rect));
+            slide_items.push((
+                make_slide_content(item.clone(), json_slides.clone()),
+                item.rect,
+            ));
         }
         slide_items
     }
 }
 
 impl Component for Slides {
-    fn init(&mut self, area: Rect) -> Result<()> {
+    fn init(&mut self, area: Rect, json_slides: String) -> Result<()> {
+        self.json_slides = json_slides;
         self.picker.guess_protocol();
         self.get_json_slides();
         Ok(())
@@ -178,7 +189,7 @@ impl Component for Slides {
 
         let slide = self.get_slide();
 
-        let slide_items = Self::make_slide_items(&slide);
+        let slide_items = Self::make_slide_items(&slide, self.json_slides.clone());
         let title = Self::make_title(&slide);
         let block = self.make_block();
 
@@ -202,6 +213,9 @@ impl Component for Slides {
                     let mut img_static = self.picker.new_resize_protocol(s);
                     let img = StatefulImage::new(None).resize(Resize::Fit(None));
                     f.render_stateful_widget(img, slide_rect, &mut img_static);
+                }
+                ReturnSlideWidget::Block(s) => {
+                    f.render_widget(s, slide_rect);
                 }
             }
         }

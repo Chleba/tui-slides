@@ -1,5 +1,5 @@
 use image::DynamicImage;
-use ratatui::{layout::Rect, text::Line, widgets::Paragraph};
+use ratatui::{layout::Rect, text::Line, widgets::{Block, Paragraph}};
 use serde::{Deserialize, Serialize};
 use tui_big_text::BigText;
 
@@ -9,6 +9,7 @@ pub enum ReturnSlideWidget<'a> {
     BigText(BigText<'a>),
     Line(Line<'a>),
     Image(DynamicImage),
+    Block(Block<'a>),
 }
 
 #[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]
@@ -17,6 +18,7 @@ pub enum SlideContentType {
     BigText,
     Line,
     Image,
+    Block,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
