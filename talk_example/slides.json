@@ -1,0 +1,42 @@
+{
+  "box_size": {
+    "percent_width": 75,
+    "percent_height": 65
+  },
+
+  "slides" : [
+    {
+      "title": "RATATUI",
+      "content": [
+        {
+          "type": "Image",
+          "content": "./images/ratatui.png",
+          "rect": { "x": 21, "y": 6, "width": 20, "height": 20 }
+        },
+        {
+          "type": "Line",
+          "content": "A Rust library for creating",
+          "rect": { "x": 18, "y": 17, "width": 40, "height": 1 },
+          "color": "#FFFFee" 
+        },
+        {
+          "type": "Line",
+          "content": "TERMINAL USER INTERFACES",
+          "rect": { "x": 19, "y": 18, "width": 40, "height": 1 },
+          "color": "#FFFF00"
+        }
+      ]
+    },
+
+    {
+      "title": "whoami",
+      "content": [
+        {
+          "type": "Paragraph",
+          "content": "Lukas Chleba Franek\n\n- https://github.com/Chleba\n- web, embedded, games, tools",
+          "rect": { "x": 5, "y": 6, "width": 40, "height": 9 }
+        }
+      ]
+    }
+  ]
+}

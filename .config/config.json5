@@ -8,7 +8,8 @@
       "<left>": "Previous",
       "<up>": "Previous",
       "<right>": "Next",
-      "<down>": "Next"
+      "<down>": "Next",
+      "<r>": "Reload"
     },
   }
 }

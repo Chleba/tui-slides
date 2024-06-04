@@ -27,6 +27,7 @@ pub struct ContentJson {
     pub type_: SlideContentType,
     pub content: Option<String>,
     pub rect: Option<Rect>,
+    pub color: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]

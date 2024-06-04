@@ -134,7 +134,7 @@ impl Slides {
 
         let big_title = BigText::builder()
             .pixel_size(PixelSize::Sextant)
-            .lines(vec![title_text.red().into()])
+            .lines(vec![title_text.green().into()])
             .alignment(Alignment::Center)
             .build();
         big_title.unwrap()
@@ -190,6 +190,10 @@ impl Component for Slides {
             }
             Action::Previous => {
                 self.previous_slide();
+            }
+            Action::Reload => {
+                self.get_json_slides();
+                self.store_images();
             }
             _ => {}
         }

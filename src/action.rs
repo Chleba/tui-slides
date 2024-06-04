@@ -20,4 +20,5 @@ pub enum Action {
 
     Previous,
     Next,
+    Reload,
 }

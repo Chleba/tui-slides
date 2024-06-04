@@ -1,4 +1,4 @@
-use std::path::Path;
+use std::{path::Path, str::FromStr};
 
 use crate::enums::{ContentJson, ReturnSlideWidget, SlideContentType, SlideJson};
 use color_eyre::{eyre::Result, owo_colors::OwoColorize};
@@ -8,7 +8,10 @@ use ratatui::{
     prelude::*,
     style::Stylize,
     text::Line,
-    widgets::{block::{self, Title}, Block, Borders, Paragraph, WidgetRef},
+    widgets::{
+        block::{self, Title},
+        Block, Borders, Paragraph, WidgetRef,
+    },
 };
 use ratatui_image::{picker::Picker, Image, Resize, StatefulImage};
 use tui_big_text::BigText;
@@ -21,14 +24,25 @@ pub fn get_slide_content_string(slide: ContentJson) -> String {
     content_str
 }
 
+fn get_slide_content_color(slide: ContentJson) -> String {
+    if let Some(c) = slide.color {
+        return c;
+    }
+    String::from("#FF0000")
+}
+
 fn make_slide_paragraph<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
     let content = get_slide_content_string(slide);
     ReturnSlideWidget::Paragraph(Paragraph::new(content))
 }
 
 fn make_slide_line<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
-    let content = get_slide_content_string(slide);
-    ReturnSlideWidget::Line(Line::from(content))
+    let content = get_slide_content_string(slide.clone());
+    let color = get_slide_content_color(slide);
+    ReturnSlideWidget::Line(
+        Line::from(content)
+            .style(Style::default().fg(Color::from_str(&color).unwrap_or(Color::Blue))),
+    )
 }
 
 fn make_slide_bigtext<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
