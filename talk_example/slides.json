@@ -1,7 +1,7 @@
 {
   "box_size": {
-    "percent_width": 75,
-    "percent_height": 65
+    "width": 50,
+    "height": 30
   },
 
   "slides" : [
@@ -11,18 +11,18 @@
         {
           "type": "Image",
           "content": "./images/ratatui.png",
-          "rect": { "x": 21, "y": 6, "width": 20, "height": 20 }
+          "rect": { "x": 15, "y": 6, "width": 20, "height": 20 }
         },
         {
           "type": "Line",
           "content": "A Rust library for creating",
-          "rect": { "x": 18, "y": 17, "width": 40, "height": 1 },
+          "rect": { "x": 12, "y": 17, "width": 30, "height": 1 },
           "color": "#FFFFee" 
         },
         {
           "type": "Line",
           "content": "TERMINAL USER INTERFACES",
-          "rect": { "x": 19, "y": 18, "width": 40, "height": 1 },
+          "rect": { "x": 14, "y": 18, "width": 30, "height": 1 },
           "color": "#FFFF00"
         }
       ]
@@ -32,9 +32,35 @@
       "title": "whoami",
       "content": [
         {
+          "type": "Line",
+          "content": "Lukas Chleba",
+          "rect": { "x": 5, "y": 6, "width": 40, "height": 1 },
+          "color": "#FFFF00"
+        },
+        {
           "type": "Paragraph",
-          "content": "Lukas Chleba Franek\n\n- https://github.com/Chleba\n- web, embedded, games, tools",
-          "rect": { "x": 5, "y": 6, "width": 40, "height": 9 }
+          "content": "- https://github.com/Chleba\n- web, embedded, games, tools",
+          "rect": { "x": 5, "y": 8, "width": 40, "height": 9 }
+        },
+        {
+          "type": "Image",
+          "content": "./images/szn.jpg",
+          "rect": { "x": 10, "y": 12, "width": 10, "height": 10 }
+        },
+        {
+          "type": "Image",
+          "content": "./images/geewa.jpg",
+          "rect": { "x": 21, "y": 12, "width": 10, "height": 10 }
+        },
+        {
+          "type": "Image",
+          "content": "./images/prusa.jpg",
+          "rect": { "x": 10, "y": 18, "width": 10, "height": 10 }
+        },
+        {
+          "type": "Image",
+          "content": "./images/ubi.jpg",
+          "rect": { "x": 21, "y": 18, "width": 10, "height": 10 }
         }
       ]
     }

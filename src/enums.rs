@@ -38,8 +38,8 @@ pub struct SlideJson {
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct BoxSizeJson {
-    pub percent_width: u16,
-    pub percent_height: u16,
+    pub width: u16,
+    pub height: u16,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]

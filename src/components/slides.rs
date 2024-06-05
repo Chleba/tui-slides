@@ -15,7 +15,7 @@ use super::{Component, Frame};
 use crate::{
     action::Action,
     enums::{ContentJson, ReturnSlideWidget, SlideContentType, SlideJson, SlidesJson},
-    layout::{get_slides_layout, CONTENT_PERCENT_HEIGHT, CONTENT_PERCENT_WIDTH},
+    layout::{get_slides_layout, CONTENT_HEIGHT, CONTENT_WIDTH},
     slide_builder::{get_slide_content_string, make_slide_content, make_slide_image},
 };
 
@@ -201,11 +201,11 @@ impl Component for Slides {
     }
 
     fn draw(&mut self, f: &mut Frame<'_>, area: Rect) -> Result<()> {
-        let mut box_width = CONTENT_PERCENT_WIDTH;
-        let mut box_height = CONTENT_PERCENT_HEIGHT;
+        let mut box_width = CONTENT_WIDTH;
+        let mut box_height = CONTENT_HEIGHT;
         if let Some(slides) = &self.slides {
-            box_width = slides.box_size.percent_width;
-            box_height = slides.box_size.percent_height;
+            box_width = slides.box_size.width;
+            box_height = slides.box_size.height;
         }
 
         let rect = get_slides_layout(area, box_width, box_height);

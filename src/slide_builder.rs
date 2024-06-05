@@ -32,8 +32,9 @@ fn get_slide_content_color(slide: ContentJson) -> String {
 }
 
 fn make_slide_paragraph<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
-    let content = get_slide_content_string(slide);
-    ReturnSlideWidget::Paragraph(Paragraph::new(content))
+    let content = get_slide_content_string(slide.clone());
+    let color = get_slide_content_color(slide);
+    ReturnSlideWidget::Paragraph(Paragraph::new(content).style(Style::default().fg(Color::from_str(&color).unwrap())))
 }
 
 fn make_slide_line<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
@@ -73,11 +74,13 @@ pub fn make_slide_image<'a>(slide: ContentJson, slide_path: String) -> ReturnSli
 }
 
 fn make_slide_block<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
-    let content = get_slide_content_string(slide);
+    let content = get_slide_content_string(slide.clone());
+    let color = get_slide_content_color(slide);
     ReturnSlideWidget::Block(
         Block::default()
             .borders(Borders::ALL)
-            .border_style(Style::default().fg(Color::Rgb(100, 100, 100)))
+            // .border_style(Style::default().fg(Color::Rgb(100, 100, 100)))
+            .border_style(Style::default().fg(Color::from_str(&color).unwrap()))
             .title(
                 Title::from(Line::from(vec![content.yellow()]))
                     .alignment(Alignment::Right)
