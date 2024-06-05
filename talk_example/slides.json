@@ -39,7 +39,7 @@
         },
         {
           "type": "Paragraph",
-          "content": "- https://github.com/Chleba\n- web, embedded, games, tools",
+          "content": "- https://github.com/Chleba\n- web, embedded, games, tools\n- 🌐 www.chleba.org",
           "rect": { "x": 5, "y": 8, "width": 40, "height": 9 }
         },
         {
@@ -62,6 +62,13 @@
           "content": "./images/ubi.jpg",
           "rect": { "x": 21, "y": 18, "width": 10, "height": 10 }
         }
+      ]
+    },
+
+    {
+      "title": "RUST PROJECTS",
+      "content": [
+        { "type": "Image", "content": "./images/demo.gif", "rect": { "x": 15, "y": 10, "width": 25, "height": 25 } }
       ]
     }
   ]
