@@ -1,7 +1,7 @@
 # tui-slides
 Terminal Presentation tool with modern TUI capable to render images in terminal and with many more widgets.
 
-<img src="./tui-slides.png" width="100" />
+<img src="./tui-slides.png" width="420" />
 
 ## Install via cargo
 ```
