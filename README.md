@@ -10,7 +10,7 @@ cargo install tui-slides
 
 ## Usage
 To create new presentation You have to create a folder with JSON file where you can create Your presentation slides.
-Example file is here.
+Example file is [here](./talk_example/slides.json).
 
 ## Run
 To start `tui-slides` we just call it with argument `-j` where we specify path to JSON file with slides data.
@@ -26,7 +26,7 @@ Main section of slide config is `box_size`. Here we set fixed size of content bo
 
 ### JSON: slides
 `slides` property is defining content. Slide content have it's `type`, `content`, `rect` & `color`.
-There are few types at the moment but in the future there should be support for every widget in Ratatui library.
+There are few types at the moment but in the future there should be support for every widget in [Ratatui](https://github.com/ratatui-org/ratatui) library.
 Supported widgets ATM:
 - Image
 - Block
