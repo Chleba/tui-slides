@@ -7,6 +7,10 @@ Terminal Presentation tool with modern TUI capable to render images in terminal 
 ```
 cargo install tui-slides
 ```
+### AUR
+```
+paru -S tui-slides
+```
 
 ## Usage
 To create new presentation You have to create a folder with JSON file where you can create Your presentation slides.
