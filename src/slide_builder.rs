@@ -9,8 +9,7 @@ use ratatui::{
     style::Stylize,
     text::Line,
     widgets::{
-        block::{self, Title},
-        Block, Borders, Paragraph, WidgetRef,
+        block::{self, Title}, Block, BorderType, Borders, Paragraph, WidgetRef
     },
 };
 use ratatui_image::{picker::Picker, Image, Resize, StatefulImage};
@@ -79,7 +78,6 @@ pub fn make_slide_block<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
     ReturnSlideWidget::Block(
         Block::default()
             .borders(Borders::ALL)
-            // .border_style(Style::default().fg(Color::Rgb(100, 100, 100)))
             .border_style(Style::default().fg(Color::from_str(&color).unwrap()))
             .title(
                 Title::from(Line::from(vec![content.yellow()]))

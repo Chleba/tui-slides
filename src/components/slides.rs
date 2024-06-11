@@ -180,6 +180,7 @@ impl Slides {
         Self::make_block(None)
             .title_bottom(title)
             .title_alignment(Alignment::Right)
+            .border_type(BorderType::Rounded)
     }
 
     fn make_slide_items<'a>(
@@ -263,14 +264,15 @@ impl Component for Slides {
                     f.render_widget(s, slide_rect);
                 }
                 ReturnSlideWidget::Image(s) => {
-                    // -- block
-                    let block = Self::make_block(None);
+                    // -- block | borders
+                    let block = Self::make_block(None).style(Style::default().bg(Color::Black));
                     let mut b_rect = slide_rect;
                     b_rect.x -= 1;
                     b_rect.width += 2;
                     b_rect.y -= 1;
                     f.render_widget(block, b_rect);
 
+                    // -- image
                     let mut img_static = self.images[img_index].clone();
                     let img = StatefulImage::new(None).resize(Resize::Fit(None));
                     f.render_stateful_widget(img, slide_rect, &mut img_static);

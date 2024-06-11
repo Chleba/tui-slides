@@ -11,18 +11,18 @@
         {
           "type": "Image",
           "content": "./images/ratatui.png",
-          "rect": { "x": 15, "y": 7, "width": 21, "height": 15 }
+          "rect": { "x": 26, "y": 7, "width": 21, "height": 15 }
         },
         {
           "type": "Line",
           "content": "A Rust library for creating",
-          "rect": { "x": 12, "y": 21, "width": 30, "height": 1 },
+          "rect": { "x": 23, "y": 21, "width": 30, "height": 1 },
           "color": "#FFFFee" 
         },
         {
           "type": "Line",
           "content": "TERMINAL USER INTERFACES",
-          "rect": { "x": 14, "y": 22, "width": 30, "height": 1 },
+          "rect": { "x": 25, "y": 22, "width": 30, "height": 1 },
           "color": "#FFFF00"
         }
       ]
