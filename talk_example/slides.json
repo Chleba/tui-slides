@@ -1,47 +1,36 @@
 {
   "box_size": {
-    "width": 75,
-    "height": 30
+    "width": 90,
+    "height": 35
   },
 
   "slides" : [
     {
       "title": "RATATUI",
       "content": [
-        {
-          "type": "Image",
-          "content": "./images/ratatui.png",
-          "rect": { "x": 26, "y": 7, "width": 21, "height": 15 }
-        },
-        {
-          "type": "Line",
-          "content": "A Rust library for creating",
-          "rect": { "x": 23, "y": 21, "width": 30, "height": 1 },
-          "color": "#FFFFee" 
-        },
-        {
-          "type": "Line",
-          "content": "TERMINAL USER INTERFACES",
-          "rect": { "x": 25, "y": 22, "width": 30, "height": 1 },
-          "color": "#FFFF00"
-        }
+        {"type": "Image", "content": "./images/ratatui.png", "rect": { "x": 34, "y": 8, "width": 21, "height": 15 }},
+        {"type": "Line", "content": "A Rust library for creating", "rect": { "x": 31, "y": 24, "width": 30, "height": 1 }, "color": "#FFFFee"},
+        {"type": "Line", "content": "TERMINAL USER INTERFACES", "rect": { "x": 32, "y": 25, "width": 30, "height": 1 }, "color": "#FFFF00"}
       ]
     },
 
     {
       "title": "whoami",
       "content": [
-        {
-          "type": "Line",
-          "content": "Lukas Chleba",
-          "rect": { "x": 5, "y": 6, "width": 40, "height": 1 },
-          "color": "#FFFF00"
-        },
+        { "type": "Image", "content": "./images/warlock.png", "rect": { "x": 5, "y": 13, "width": 20, "height": 15 }},
+        { "type": "Line", "content": "Lukas Chleba", "rect": { "x": 5, "y": 6, "width": 40, "height": 1 }, "color": "#FFFF00"},
         {
           "type": "Paragraph",
           "content": "- https://github.com/Chleba\n- web, embedded, games, tools\n- 🌐 www.chleba.org",
           "rect": { "x": 5, "y": 8, "width": 40, "height": 9 }
-        },
+        }
+      ]
+    },
+
+    {
+      "title": "RUST PROJECTS",
+      "content": [
+        { "type": "Image", "content": "./images/szn.jpg", "rect": { "x": 15, "y": 10, "width": 25, "height": 25 } },
         {
           "type": "Image",
           "content": "./images/szn.jpg",
@@ -62,13 +51,7 @@
           "content": "./images/ubi.jpg",
           "rect": { "x": 21, "y": 18, "width": 10, "height": 10 }
         }
-      ]
-    },
 
-    {
-      "title": "RUST PROJECTS",
-      "content": [
-        { "type": "Image", "content": "./images/demo.gif", "rect": { "x": 15, "y": 10, "width": 25, "height": 25 } }
       ]
     }
   ]
