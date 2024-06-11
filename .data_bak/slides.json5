@@ -21,7 +21,7 @@
         {
           "type": "Image",
           "content": ".data/images/bomb.png",
-          "rect": { "x": 0, "y": 0, "width": 15, "height": 15 }
+          "rect": { "x": 0, "y": 0, "width": 15, "height": 3 }
         },
         {
           "type": "Image",

@@ -1,6 +1,7 @@
 use std::io::Read;
 use std::path::Path;
 
+use block::Position;
 use color_eyre::{eyre::Result, owo_colors::OwoColorize};
 use ratatui::{
     prelude::*,
@@ -16,7 +17,9 @@ use crate::{
     action::Action,
     enums::{ContentJson, ReturnSlideWidget, SlideContentType, SlideJson, SlidesJson},
     layout::{get_slides_layout, CONTENT_HEIGHT, CONTENT_WIDTH},
-    slide_builder::{get_slide_content_string, make_slide_content, make_slide_image},
+    slide_builder::{
+        get_slide_content_string, make_slide_block, make_slide_content, make_slide_image,
+    },
 };
 
 pub struct Slides {
@@ -140,23 +143,43 @@ impl Slides {
         big_title.unwrap()
     }
 
-    fn make_block(&self) -> Block {
-        let s_index = self.slide_index + 1;
-        Block::default()
+    fn make_block(title: Option<Line>) -> Block {
+        let s_content = ContentJson {
+            type_: SlideContentType::Block,
+            content: None,
+            rect: None,
+            color: Some("#FFDDDD".to_string()),
+        };
+        let block = make_slide_block(s_content);
+        if let ReturnSlideWidget::Block(mut b) = block {
+            if let Some(t) = title {
+                b = b.title(Title::from(t));
+            }
+            return b;
+        }
+
+        // -- default
+        let mut block = Block::default()
             .borders(Borders::ALL)
-            .border_style(Style::default().fg(Color::Rgb(100, 100, 100)))
-            .border_type(BorderType::Double)
-            .title(
-                Title::from(Line::from(vec![
-                    "|".yellow(),
-                    s_index.to_string().green(),
-                    "/".yellow(),
-                    self.slide_count.to_string().green(),
-                    "|".yellow(),
-                ]))
-                .alignment(Alignment::Right)
-                .position(block::Position::Bottom),
-            )
+            .border_style(Style::default().fg(Color::Rgb(100, 100, 100)));
+        if let Some(t) = title {
+            block = block.title(Title::from(t));
+        }
+        block
+    }
+
+    fn make_content_block(&self) -> Block {
+        let s_index = self.slide_index + 1;
+        let title = Line::from(vec![
+            "|".yellow(),
+            s_index.to_string().green(),
+            "/".yellow(),
+            self.slide_count.to_string().green(),
+            "|".yellow(),
+        ]);
+        Self::make_block(None)
+            .title_bottom(title)
+            .title_alignment(Alignment::Right)
     }
 
     fn make_slide_items<'a>(
@@ -220,7 +243,7 @@ impl Component for Slides {
 
         let slide_items = Self::make_slide_items(&slide, self.json_slides.clone());
         let title = Self::make_title(&slide);
-        let block = self.make_block();
+        let block = self.make_content_block();
 
         f.render_widget(title, title_rect);
         f.render_widget(block, rect.content);
@@ -240,8 +263,15 @@ impl Component for Slides {
                     f.render_widget(s, slide_rect);
                 }
                 ReturnSlideWidget::Image(s) => {
+                    // -- block
+                    let block = Self::make_block(None);
+                    let mut b_rect = slide_rect;
+                    b_rect.x -= 1;
+                    b_rect.width += 2;
+                    b_rect.y -= 1;
+                    f.render_widget(block, b_rect);
+
                     let mut img_static = self.images[img_index].clone();
-                    // let mut img_static = self.picker.new_resize_protocol(s);
                     let img = StatefulImage::new(None).resize(Resize::Fit(None));
                     f.render_stateful_widget(img, slide_rect, &mut img_static);
                     img_index += 1;

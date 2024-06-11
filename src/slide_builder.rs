@@ -73,7 +73,7 @@ pub fn make_slide_image<'a>(slide: ContentJson, slide_path: String) -> ReturnSli
     ReturnSlideWidget::Image(dyn_img)
 }
 
-fn make_slide_block<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
+pub fn make_slide_block<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
     let content = get_slide_content_string(slide.clone());
     let color = get_slide_content_color(slide);
     ReturnSlideWidget::Block(
