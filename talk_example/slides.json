@@ -8,7 +8,7 @@
     {
       "title": "RATATUI",
       "content": [
-        {"type": "Image", "content": "./images/ratatui.png", "rect": { "x": 34, "y": 8, "width": 21, "height": 15 }},
+        {"type": "Image", "content": "./images/ratatui.png", "rect": { "x": 34, "y": 8, "width": 21, "height": 13 }},
         {"type": "Line", "content": "A Rust library for creating", "rect": { "x": 31, "y": 24, "width": 30, "height": 1 }, "color": "#FFFFee"},
         {"type": "Line", "content": "TERMINAL USER INTERFACES", "rect": { "x": 32, "y": 25, "width": 30, "height": 1 }, "color": "#FFFF00"}
       ]
@@ -21,8 +21,9 @@
         { "type": "Line", "content": "Lukas Chleba", "rect": { "x": 5, "y": 6, "width": 40, "height": 1 }, "color": "#FFFF00"},
         {
           "type": "Paragraph",
+          "rect": { "x": 5, "y": 8, "width": 40, "height": 9 },
           "content": "- https://github.com/Chleba\n- web, embedded, games, tools\n- 🌐 www.chleba.org",
-          "rect": { "x": 5, "y": 8, "width": 40, "height": 9 }
+          "color": "#FFFFEE"
         }
       ]
     },

@@ -38,7 +38,7 @@ fn get_centered_rect(width: u16, height: u16, area: Rect) -> Rect {
     let y_axis = Layout::vertical([Constraint::Percentage(50), Constraint::Percentage(50)]).split(area);
     Rect {
         x: x_axis[1].x - (width / 2),
-        y: y_axis[1].y - (height / 2),
+        y: y_axis[1].y - ((height / 2) + 1),
         width,
         height,
     }
