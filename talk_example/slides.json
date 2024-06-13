@@ -8,7 +8,7 @@
     {
       "title": "RATATUI",
       "content": [
-        {"type": "Image", "content": "./images/ratatui.png", "rect": { "x": 34, "y": 8, "width": 21, "height": 13 }},
+        {"type": "Image", "content": "./images/ratatui.png", "rect": { "x": 34, "y": 9, "width": 21, "height": 13 }},
         {"type": "Line", "content": "A Rust library for creating", "rect": { "x": 31, "y": 24, "width": 30, "height": 1 }, "color": "#FFFFee"},
         {"type": "Line", "content": "TERMINAL USER INTERFACES", "rect": { "x": 32, "y": 25, "width": 30, "height": 1 }, "color": "#FFFF00"}
       ]
@@ -17,42 +17,35 @@
     {
       "title": "whoami",
       "content": [
-        { "type": "Image", "content": "./images/warlock.png", "rect": { "x": 5, "y": 13, "width": 20, "height": 15 }},
-        { "type": "Line", "content": "Lukas Chleba", "rect": { "x": 5, "y": 6, "width": 40, "height": 1 }, "color": "#FFFF00"},
+        { "type": "Image", "content": "./images/warlock.png", "rect": { "x": 8, "y": 13, "width": 19, "height": 13 }},
+        { "type": "Line", "content": "Lukas `Chleba` Franek", "rect": { "x": 35, "y": 13, "width": 25, "height": 1 }, "color": "#FFFF00"},
         {
           "type": "Paragraph",
-          "rect": { "x": 5, "y": 8, "width": 40, "height": 9 },
-          "content": "- https://github.com/Chleba\n- web, embedded, games, tools\n- 🌐 www.chleba.org",
+          "rect": { "x": 35, "y": 15, "width": 44, "height": 4 },
+          "content": "- 📁 github.com/Chleba\n- 🚧 Web, Embedded, Games, Desktop, Mobile\n- 📦 Alpine Linux package maintainer\n- 🌐 www.chleba.org",
           "color": "#FFFFEE"
         }
       ]
     },
 
     {
-      "title": "RUST PROJECTS",
+      "title": "as_ref()",
       "content": [
-        { "type": "Image", "content": "./images/szn.jpg", "rect": { "x": 15, "y": 10, "width": 25, "height": 25 } },
-        {
-          "type": "Image",
-          "content": "./images/szn.jpg",
-          "rect": { "x": 10, "y": 12, "width": 10, "height": 10 }
-        },
-        {
-          "type": "Image",
-          "content": "./images/geewa.jpg",
-          "rect": { "x": 21, "y": 12, "width": 10, "height": 10 }
-        },
-        {
-          "type": "Image",
-          "content": "./images/prusa.jpg",
-          "rect": { "x": 10, "y": 18, "width": 10, "height": 10 }
-        },
-        {
-          "type": "Image",
-          "content": "./images/ubi.jpg",
-          "rect": { "x": 21, "y": 18, "width": 10, "height": 10 }
-        }
+        { "type": "Image", "content": "./images/ubi.jpg", "rect": { "x": 27, "y": 15, "width": 15, "height": 10 } },
+        { "type": "Image", "content": "./images/geewa.jpg", "rect": { "x": 8, "y": 20, "width": 8, "height": 6 } },
+        { "type": "Image", "content": "./images/apollogames.jpg", "rect": { "x": 50, "y": 12, "width": 9, "height": 7 } },
+        { "type": "Image", "content": "./images/prusa.jpg", "rect": { "x": 45, "y": 20, "width": 19, "height": 12 } },
+        { "type": "Image", "content": "./images/narodni_divadlo.png", "rect": { "x": 25, "y": 26, "width": 11, "height": 8 } },
+        { "type": "Image", "content": "./images/praha.png", "rect": { "x": 36, "y": 8, "width": 8, "height": 6 } },
+        { "type": "Image", "content": "./images/skoda.png", "rect": { "x": 65, "y": 9, "width": 10, "height": 7 } },
+        { "type": "Image", "content": "./images/szn.jpg", "rect": { "x": 15, "y": 10, "width": 10, "height": 7 } }
+      ]
+    },
 
+    {
+      "title": "THE BEST LANG",
+      "content": [
+        { "type": "Image", "content": "./images/zig.png", "rect": { "x": 15, "y": 10, "width": 35, "height": 10 } }
       ]
     }
   ]

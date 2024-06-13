@@ -267,7 +267,7 @@ impl Component for Slides {
                     // -- block | borders
                     let block = Self::make_block(None)
                         .style(Style::default().bg(Color::Black))
-                        .border_style(Style::default().fg(Color::DarkGray));
+                        .border_style(Style::default().fg(Color::Rgb(100, 100, 100)));
                     let mut b_rect = slide_rect;
                     b_rect.x -= 1;
                     b_rect.width += 2;
