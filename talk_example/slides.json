@@ -15,6 +15,20 @@
     },
 
     {
+      "title": "first",
+      "content": [
+        { "type": "Image", "content": "./images/atari800xe.png", "rect": { "x": 22, "y": 10, "width": 46, "height": 19 }}
+      ]
+    },
+
+    {
+      "title": "turbo-basic",
+      "content": [
+        { "type": "Image", "content": "./images/atari_basic.jpg", "rect": { "x": 22, "y": 11, "width": 46, "height": 17 }}
+      ]
+    },
+
+    {
       "title": "whoami",
       "content": [
         { "type": "Image", "content": "./images/warlock.png", "rect": { "x": 8, "y": 13, "width": 19, "height": 13 }},
@@ -35,7 +49,7 @@
         { "type": "Image", "content": "./images/geewa.jpg", "rect": { "x": 8, "y": 20, "width": 8, "height": 6 } },
         { "type": "Image", "content": "./images/apollogames.jpg", "rect": { "x": 50, "y": 12, "width": 9, "height": 7 } },
         { "type": "Image", "content": "./images/prusa.jpg", "rect": { "x": 45, "y": 20, "width": 19, "height": 12 } },
-        { "type": "Image", "content": "./images/narodni_divadlo.png", "rect": { "x": 25, "y": 26, "width": 11, "height": 8 } },
+        { "type": "Image", "content": "./images/narodni_divadlo.png", "rect": { "x": 25, "y": 26, "width": 13, "height": 9 } },
         { "type": "Image", "content": "./images/praha.png", "rect": { "x": 36, "y": 8, "width": 8, "height": 6 } },
         { "type": "Image", "content": "./images/skoda.png", "rect": { "x": 65, "y": 9, "width": 10, "height": 7 } },
         { "type": "Image", "content": "./images/szn.jpg", "rect": { "x": 15, "y": 10, "width": 10, "height": 7 } }
@@ -43,9 +57,16 @@
     },
 
     {
-      "title": "THE BEST LANG",
+      "title": "new love",
       "content": [
-        { "type": "Image", "content": "./images/zig.png", "rect": { "x": 15, "y": 10, "width": 35, "height": 10 } }
+        { "type": "Image", "content": "./images/zig.png", "rect": { "x": 28, "y": 10, "width": 34, "height": 18 } }
+      ]
+    },
+
+    {
+      "title": "new love",
+      "content": [
+        { "type": "Image", "content": "./images/rust.jpg", "rect": { "x": 27, "y": 10, "width": 34, "height": 19 } }
       ]
     }
   ]
