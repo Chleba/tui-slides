@@ -132,7 +132,7 @@ impl Slides {
     fn make_title<'a>(slide: &SlideJson) -> BigText<'a> {
         let mut title_text = "__title__".to_string();
         if let Some(title) = &slide.title {
-            title_text = title.to_owned();
+            title_text = title.to_string();
         }
 
         let big_title = BigText::builder()
@@ -146,9 +146,8 @@ impl Slides {
     fn make_block(title: Option<Line>) -> Block {
         let s_content = ContentJson {
             type_: SlideContentType::Block,
-            content: None,
-            rect: None,
             color: Some("#FFDDDD".to_string()),
+            ..Default::default()
         };
         let block = make_slide_block(s_content);
         if let ReturnSlideWidget::Block(mut b) = block {
@@ -186,12 +185,13 @@ impl Slides {
     fn make_slide_items<'a>(
         slide: &SlideJson,
         json_slides: String,
-    ) -> Vec<(ReturnSlideWidget<'a>, Option<Rect>)> {
+    ) -> Vec<(ReturnSlideWidget<'a>, Option<Rect>, Option<Vec<u64>>)> {
         let mut slide_items = vec![];
         for item in &slide.content {
             slide_items.push((
                 make_slide_content(item.clone(), json_slides.clone()),
                 item.rect,
+                item.data.clone(),
             ));
         }
         slide_items
@@ -251,8 +251,14 @@ impl Component for Slides {
 
         // -- render slide widgets
         let mut img_index = 0;
-        for (slide, r) in slide_items {
+        for (slide, r, d) in slide_items {
             let slide_rect = self.get_slide_rect(rect.content, r);
+
+            let mut data = vec![];
+            if let Some(d1) = d {
+                data = d1;
+            }
+
             match slide {
                 ReturnSlideWidget::Paragraph(s) => {
                     f.render_widget(s, slide_rect);
@@ -281,6 +287,10 @@ impl Component for Slides {
                     img_index += 1;
                 }
                 ReturnSlideWidget::Block(s) => {
+                    f.render_widget(s, slide_rect);
+                }
+                ReturnSlideWidget::Sparkline(mut s) => {
+                    s = s.data(&data);
                     f.render_widget(s, slide_rect);
                 }
             }

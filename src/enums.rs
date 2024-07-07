@@ -1,5 +1,5 @@
 use image::DynamicImage;
-use ratatui::{layout::Rect, text::Line, widgets::{Block, Paragraph}};
+use ratatui::{layout::Rect, text::Line, widgets::{Block, Paragraph, Sparkline}};
 use serde::{Deserialize, Serialize};
 use tui_big_text::BigText;
 
@@ -10,6 +10,7 @@ pub enum ReturnSlideWidget<'a> {
     Line(Line<'a>),
     Image(DynamicImage),
     Block(Block<'a>),
+    Sparkline(Sparkline<'a>),
 }
 
 #[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]
@@ -19,6 +20,7 @@ pub enum SlideContentType {
     Line,
     Image,
     Block,
+    Sparkline,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
@@ -28,6 +30,21 @@ pub struct ContentJson {
     pub content: Option<String>,
     pub rect: Option<Rect>,
     pub color: Option<String>,
+    pub data: Option<Vec<u64>>,
+    pub max: Option<u64>,
+}
+
+impl Default for ContentJson {
+    fn default() -> Self {
+        Self {
+            type_: SlideContentType::Line,
+            content: None,
+            rect: None,
+            color: None,
+            data: None,
+            max: None,
+        }
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]

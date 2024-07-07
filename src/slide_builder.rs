@@ -1,4 +1,4 @@
-use std::{path::Path, str::FromStr};
+use std::{ops::Deref, path::Path, str::FromStr, sync::Arc};
 
 use crate::enums::{ContentJson, ReturnSlideWidget, SlideContentType, SlideJson};
 use color_eyre::{eyre::Result, owo_colors::OwoColorize};
@@ -9,44 +9,70 @@ use ratatui::{
     style::Stylize,
     text::Line,
     widgets::{
-        block::{self, Title}, Block, BorderType, Borders, Paragraph, WidgetRef
+        block::{self, Title},
+        Block, BorderType, Borders, Paragraph, Sparkline, WidgetRef,
     },
 };
 use ratatui_image::{picker::Picker, Image, Resize, StatefulImage};
 use tui_big_text::BigText;
 
-pub fn get_slide_content_string(slide: ContentJson) -> String {
+pub fn get_slide_content_string(slide: &ContentJson) -> String {
     let mut content_str = String::from("");
-    if let Some(cv) = slide.content {
-        content_str = cv;
+    if let Some(cv) = &slide.content {
+        content_str = cv.to_string();
     }
     content_str
 }
 
-fn get_slide_content_color(slide: ContentJson) -> String {
-    if let Some(c) = slide.color {
-        return c;
+fn get_slide_content_color(slide: &ContentJson) -> String {
+    if let Some(c) = &slide.color {
+        return c.to_owned();
     }
     String::from("#FF0000")
 }
 
-fn make_slide_paragraph<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
-    let content = get_slide_content_string(slide.clone());
-    let color = get_slide_content_color(slide);
-    ReturnSlideWidget::Paragraph(Paragraph::new(content).style(Style::default().fg(Color::from_str(&color).unwrap())))
+fn get_slide_content_max(slide: &ContentJson) -> u64 {
+    if let Some(c) = slide.max {
+        return c;
+    }
+    10
 }
 
+// fn get_slide_content_data(slide: &ContentJson) -> Vec<u64> {
+//     if let Some(c) = slide.data {
+//         return c.to_vec();
+//     }
+//     vec![0]
+// }
+
+// -------------
+// -- PARAGRAPH
+// -------------
+fn make_slide_paragraph<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
+    let content = get_slide_content_string(&slide);
+    let color = get_slide_content_color(&slide);
+    ReturnSlideWidget::Paragraph(
+        Paragraph::new(content).style(Style::default().fg(Color::from_str(&color).unwrap())),
+    )
+}
+
+// -------------
+// -- LINE
+// -------------
 fn make_slide_line<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
-    let content = get_slide_content_string(slide.clone());
-    let color = get_slide_content_color(slide);
+    let content = get_slide_content_string(&slide);
+    let color = get_slide_content_color(&slide);
     ReturnSlideWidget::Line(
         Line::from(content)
             .style(Style::default().fg(Color::from_str(&color).unwrap_or(Color::Blue))),
     )
 }
 
+// -------------
+// -- BIGTEXT
+// -------------
 fn make_slide_bigtext<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
-    let content = get_slide_content_string(slide);
+    let content = get_slide_content_string(&slide);
     let lines: Vec<Line> = content
         .split('\n')
         .map(|s| Line::from(s.to_string()))
@@ -61,10 +87,13 @@ fn make_slide_bigtext<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
     )
 }
 
+// -------------
+// -- IMAGE
+// -------------
 pub fn make_slide_image<'a>(slide: ContentJson, slide_path: String) -> ReturnSlideWidget<'a> {
     let f_path = Path::new(&slide_path);
     let img_path = f_path.parent().unwrap();
-    let content = get_slide_content_string(slide);
+    let content = get_slide_content_string(&slide);
     let dyn_img = image::io::Reader::open(img_path.join(content))
         .unwrap()
         .decode()
@@ -72,9 +101,12 @@ pub fn make_slide_image<'a>(slide: ContentJson, slide_path: String) -> ReturnSli
     ReturnSlideWidget::Image(dyn_img)
 }
 
+// -------------
+// -- BLOCK
+// -------------
 pub fn make_slide_block<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
-    let content = get_slide_content_string(slide.clone());
-    let color = get_slide_content_color(slide);
+    let content = get_slide_content_string(&slide);
+    let color = get_slide_content_color(&slide);
     ReturnSlideWidget::Block(
         Block::default()
             .borders(Borders::ALL)
@@ -84,6 +116,24 @@ pub fn make_slide_block<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
                     .alignment(Alignment::Right)
                     .position(block::Position::Bottom),
             ),
+    )
+}
+
+// -------------
+// -- SPARKLINE
+// -------------
+pub fn make_slide_sparkline<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
+    let content = get_slide_content_string(&slide);
+    let color = get_slide_content_color(&slide);
+    let max = get_slide_content_max(&slide);
+    // let data = get_slide_content_data(&slide).to_owned();
+
+    ReturnSlideWidget::Sparkline(
+        Sparkline::default()
+            // .data(&data)
+            // .data(data)
+            .max(max)
+            .style(Style::default().red().on_black()),
     )
 }
 
@@ -97,5 +147,6 @@ pub fn make_slide_content<'a>(
         SlideContentType::Line => make_slide_line(slide_content),
         SlideContentType::Image => make_slide_image(slide_content, slide_path),
         SlideContentType::Block => make_slide_block(slide_content),
+        SlideContentType::Sparkline => make_slide_sparkline(slide_content),
     }
 }

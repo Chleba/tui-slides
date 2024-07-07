@@ -29,7 +29,7 @@ Main section of slide config is `box_size`. Here we set fixed size of content bo
 ```
 
 ### JSON: slides
-`slides` property is defining content. Slide content have it's `type`, `content`, `rect` & `color`.
+`slides` property is defining content. Slide content have it's `type`, `content`, `rect`, `data`, `max` & `color`.
 There are few types at the moment but in the future there should be support for every widget in [Ratatui](https://github.com/ratatui-org/ratatui) library.
 Supported widgets ATM:
 - Image
@@ -37,4 +37,5 @@ Supported widgets ATM:
 - Paragraph
 - Line
 - Bigtext
+- Sparkline
 
