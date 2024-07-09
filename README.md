@@ -38,4 +38,5 @@ Supported widgets ATM:
 - Line
 - Bigtext
 - Sparkline
+- Code Highlight
 
