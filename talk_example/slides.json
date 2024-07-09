@@ -5,34 +5,33 @@
   },
 
   "slides" : [
-
-    {
-      "title": "Block",
-      "content": [
-        {"type": "CodeHighlight", "content": "Block::new()\n.borders(Borders::ALL)\n.title(\"Block title\")", "rect": {"x": 10, "y": 10, "width": 40, "height": 10}}
-      ]
-    },
-
     {
       "title": "RATATUI",
       "content": [
-        {"type": "Image", "content": "./images/ratatui.png", "rect": { "x": 34, "y": 9, "width": 21, "height": 13 }},
-        {"type": "Line", "content": "A Rust library for creating", "rect": { "x": 31, "y": 24, "width": 30, "height": 1 }, "color": "#FFFFee"},
-        {"type": "Line", "content": "TERMINAL USER INTERFACES", "rect": { "x": 32, "y": 25, "width": 30, "height": 1 }, "color": "#FFFF00"}
+        {"type": "Image", "content": "./images/ratatui.png", "rect": { "x": 28, "y": 8, "width": 34, "height": 19 }},
+        {"type": "Line", "content": "A Rust library for creating", "rect": { "x": 32, "y": 27, "width": 30, "height": 1 }, "color": "#FFFFee"},
+        {"type": "Line", "content": "TERMINAL USER INTERFACES", "rect": { "x": 33, "y": 28, "width": 30, "height": 1 }, "color": "#FFFF00"}
       ]
     },
 
     {
-      "title": "first",
+      "title": "FIRST PC",
       "content": [
-        { "type": "Image", "content": "./images/atari800xe.png", "rect": { "x": 22, "y": 10, "width": 46, "height": 19 }}
+        { "type": "Image", "content": "./images/atari800xe.png", "rect": { "x": 18, "y": 9, "width": 56, "height": 23 }}
       ]
     },
 
     {
-      "title": "turbo-basic",
+      "title": "BASIC",
       "content": [
-        { "type": "Image", "content": "./images/atari_basic.jpg", "rect": { "x": 22, "y": 11, "width": 46, "height": 17 }}
+        { "type": "Image", "content": "./images/atari_basic.jpg", "rect": { "x": 18, "y": 10, "width": 50, "height": 18 }}
+      ]
+    },
+
+    {
+      "title": "MAGIC",
+      "content": [
+        { "type": "Image", "content": "./images/magical_stone.jpg", "rect": { "x": 18, "y": 6, "width": 54, "height": 29 }}
       ]
     },
 
@@ -43,8 +42,8 @@
         { "type": "Line", "content": "Lukas `Chleba` Franek", "rect": { "x": 35, "y": 13, "width": 25, "height": 1 }, "color": "#FFFF00"},
         {
           "type": "Paragraph",
-          "rect": { "x": 35, "y": 15, "width": 44, "height": 4 },
-          "content": "- 📁 github.com/Chleba\n- 🚧 Web, Embedded, Games, Desktop, Mobile\n- 📦 Alpine Linux package maintainer\n- 🌐 www.chleba.org",
+          "rect": { "x": 35, "y": 15, "width": 44, "height": 9 },
+          "content": "▸ 📁 github.com/Chleba\n\n▸ 🚧 Web, Embedded, Games, Desktop, Mobile\n\n▸ 📦 Alpine Linux package maintainer\n\n▸ 🌐 www.chleba.org",
           "color": "#FFFFEE"
         }
       ]
@@ -65,29 +64,313 @@
     },
 
     {
-      "title": "new love",
+      "title": "NEW LOVE",
       "content": [
-        { "type": "Image", "content": "./images/zig.png", "rect": { "x": 28, "y": 10, "width": 34, "height": 18 } }
+        { "type": "Image", "content": "./images/rust.jpg", "rect": { "x": 27, "y": 8, "width": 34, "height": 19 } },
+        { "type": "Line", "content": "💚println!(\"Hello World!\")💚", "rect": { "x": 30, "y": 28, "width": 28, "height": 1 }, "color": "#FFFF00"}
       ]
     },
 
     {
-      "title": "new love",
+      "title": "LEARNING",
       "content": [
-        { "type": "Image", "content": "./images/rust.jpg", "rect": { "x": 27, "y": 10, "width": 34, "height": 19 } }
+        { "type": "Paragraph", 
+          "content": "▸ rustlings: https://github.com/rust-lang/rustlings\n▸ #1 APP (hello world) is CLI\n▸ CLI > TUI\n▸ TUI: Ratatui\n▸ rust + ratatui = netscanner", 
+          "rect": { "x": 20, "y": 8, "width": 58, "height": 5 }, "color": "#FFFFFF"
+        },
+        { "type": "Image", "content": "./images/netscanner.png", "rect": { "x": 22, "y": 16, "width": 48, "height": 17 } }
       ]
     },
 
     {
-      "title": "learning",
+      "title": "CLI vs TUI",
       "content": [
-        { "type": "Line", "content": "rustlings" }
+        { "type": "Image", "content": "./images/netscanner.png", "rect": { "x": 9, "y": 9, "width": 24, "height": 10 } },
+        {
+          "type": "Paragraph",
+          "rect": { "x": 39, "y": 10, "width": 44, "height": 6 },
+          "content": "Netscanner\n▸ nmap\n▸ arpscan\n▸ iw|airport\n▸ ping\n▸ etc..",
+          "color": "#FFFFEE"
+        },
+
+        { "type": "Image", "content": "./images/mc.png", "rect": { "x": 9, "y": 22, "width": 24, "height": 10 } },
+        {
+          "type": "Paragraph",
+          "rect": { "x": 39, "y": 22, "width": 44, "height": 7 },
+          "content": "Midnight commander\n▸ cp\n▸ ls\n▸ mv\n▸ ftp\n▸ ssh\n▸ etc..",
+          "color": "#FFFFEE"
+        }
       ]
     },
+
     {
-      "title": "SPARKLINE",
+      "title": "TUI LIB",
       "content": [
-        {"type": "Sparkline", "data": [0, 1, 2, 3, 4, 5, 10, 5, 5, 4, 1, 3, 2, 6, 7, 3, 9, 7], "max": 10, "direction": "RightToLeft", "rect": {"x": 10, "y": 10, "width": 50, "height": 20}}
+        {"type": "Image", "content": "./images/ratatui.png", "rect": { "x": 28, "y": 10, "width": 34, "height": 19 }}
+      ]
+    },
+
+    {
+      "title": "RATATUI",
+      "content": [
+        { "type": "Image", "content": "./images/ratatui.png", "rect": { "x": 62, "y": 11, "width": 19, "height": 12 } },
+        {
+          "type": "Paragraph",
+          "rect": { "x": 9, "y": 10, "width": 38, "height": 19},
+          "content": "▸ lightweight immediate mode \n  graphics library\n\n▸ fork of tui-rs library \n  (since Feb 2023)\n\n▸ handling keyboard & mouse events\n\n▸ support various backends\n  (Crossterm, Termion or Termwiz)\n\n▸ many build-in widgets\n  (Canvas, Gauge, Table, Chart, ...)\n\n▸ simple dynamic layout system\n  using constraints",
+          "color": "#FFFFEE"
+        }
+      ]
+    },
+
+    {
+      "title": "TEMPLATES",
+      "content": [
+        {
+          "type": "Paragraph",
+          "rect": { "x": 9, "y": 10, "width": 68, "height": 19},
+          "content": "▸ using `cargo-generate`: github.com/ratatui-org/templates\n\n▸ `cargo generate ratatui-org/templates`\n\n▸ options:\n  ▸ simple (without async)\n  ▸ simple async\n  ▸ components",
+          "color": "#FFFFEE"
+        },
+        { "type": "Image", "content": "./images/cargo-generate.png", "rect": { "x": 6, "y": 21, "width": 79, "height": 9 } }
+      ]
+    },
+
+    {
+      "title": "LAYOUT",
+      "content": [
+        {
+          "type": "Paragraph",
+          "rect": { "x": 15, "y": 9, "width": 68, "height": 19},
+          "content": "▸ Coordinate system:\n  ▸ from left to right\n  ▸ from top to bottom\n\n▸ Layout struct:\n  ▸ Length\n  ▸ Min\n  ▸ Max\n  ▸ Ratio\n  ▸ Percentage",
+          "color": "#FFFFEE"
+        },
+        { "type": "Image", "content": "./images/layout.png", "rect": { "x": 52, "y": 9, "width": 28, "height": 14 } },
+        {"type": "CodeHighlight", 
+          "content": "let layout = Layout::default()\n.direction(Direction::Vertical)\n.constraints(vec![\n  Constraint::Percentage(50),\n  Constraint::Percentage(50),\n])\n.split(frame.size());", 
+          "rect": {"x": 15, "y": 23, "width": 40, "height": 10}
+        }
+      ]
+    },
+
+    {
+      "title": "RENDER",
+      "content": [
+        {
+          "type": "Paragraph",
+          "rect": { "x": 15, "y": 7, "width": 68, "height": 19},
+          "content": "▸ immediate mode\n  ▸ redraw UI every frame\n  ▸ no permanent widget object in memory",
+          "color": "#FFFFEE"
+        },
+        { "type": "Image", "content": "./images/immediate.png", "rect": { "x": 6, "y": 13, "width": 38, "height": 9 } },
+        { "type": "Image", "content": "./images/retained.png", "rect": { "x": 48, "y": 13, "width": 38, "height": 9 } },
+        {"type": "CodeHighlight", 
+          "content": "loop {\n  terminal.draw(|frame| {\n    if state.condition {\n      frame.render_widget(SomeWidget::new(), layout);\n    } else {\n      frame.render_widget(AnotherWidget::new(), layout);\n    }\n  })?;\n}", 
+          "rect": {"x": 15, "y": 23, "width": 70, "height": 10}
+        }
+      ]
+    },
+
+    {
+      "title": "",
+      "content": [
+        { "type": "BigText", "content": "WIDGETS:", "rect": { "x": 28, "y": 16, "width": 35, "height": 22 } }
+      ]
+    },
+
+    {
+      "title": "Block",
+      "content": [
+        {"type": "Block", "content": "block's title", "rect": {"x": 35, "y": 10, "width": 20, "height": 10}},
+        {"type": "CodeHighlight", 
+          "content": "Block::default()\n.borders(Borders::ALL)\n.title(\"block's title\")", 
+          "rect": {"x": 35, "y": 24, "width": 40, "height": 10}
+        }
+      ]
+    },
+
+    {
+      "title": "Table",
+      "content": [
+        { "type": "Image", "content": "./images/table.png", "rect": { "x": 12, "y": 8, "width": 67, "height": 13 } },
+        { "type": "CodeHighlight", 
+          "content": "let rows = [Row::new(vec![\"Cell1\", \"Cell2\", \"Cell3\"])];\nlet width = [Constraint::Min(3),Constraint::Min(3),Constraint::Min(3)];", 
+          "rect": {"x": 10, "y": 22, "width": 75, "height": 2}
+        },
+        { "type": "CodeHighlight", 
+          "content": "Table::new(rows, widths)\n.columns_spacing(1)\n.header(Row::new(vec![\"Col1\", \"Col2\", \"Col3\"]))\n.highlight_style(Style::new().reversed())\n.highlight_symbol(\">>>\")", 
+          "rect": {"x": 15, "y": 25, "width": 60, "height": 10}
+        }
+      ]
+    },
+
+    {
+      "title": "Sparkline",
+      "content": [
+        {"type": "Sparkline", "data": [0, 1, 2, 3, 4, 5, 10, 5, 5, 4, 1, 3, 2, 6, 7, 3, 9, 7], "max": 10, "direction": "RightToLeft", "rect": {"x": 34, "y": 10, "width": 50, "height": 10}},
+        {"type": "CodeHighlight", "content": "Sparkline::default()\n.data(&[1, 2, 3, 4, 5])\n.max(5)\n.direction(RenderDirection::LeftToRight)", "rect": {"x": 25, "y": 24, "width": 40, "height": 10}}
+      ]
+    },
+
+    {
+      "title": "Canvas",
+      "content": [
+        { "type": "Image", "content": "./images/canvas.png", "rect": { "x": 17, "y": 8, "width": 57, "height": 15 } },
+        {"type": "CodeHighlight", 
+          "content": "Canvas::default()\n.x_bounds(&[-50.0, 50.0])\n.y_bounds(-50.0, 50.0)\n.paint(|ctx| {\n  ctx.draw(&Line {\n    x1: 0.0, y1: 0.0, x2: 10.0, y2: 10.0, color: Color::White\n  })\n})", 
+          "rect": {"x": 15, "y": 24, "width": 70, "height": 10}
+        }
+      ]
+    },
+
+    {
+      "title": "canvas::Map",
+      "content": [
+        { "type": "Image", "content": "./images/canvasmap.png", "rect": { "x": 21, "y": 6, "width": 52, "height": 29 }}
+      ]
+    },
+
+    {
+      "title": "List",
+      "content": [
+        { "type": "Image", "content": "./images/list.png", "rect": { "x": 23, "y": 7, "width": 44, "height": 12 } },
+        { "type": "CodeHighlight", 
+          "content": "let items = [\"Item1\", \"Item2\", \"Item3\"])];", 
+          "rect": {"x": 15, "y": 22, "width": 75, "height": 2}
+        },
+        { "type": "CodeHighlight", 
+          "content": "List::new(items)\n.direction(ListDirection::BottomToTop)\n.highlight_style(\n  Style::default()\n  .add_modifier(Modifier::ITALIC)\n)\n.highlight_symbol(\">>>\")", 
+          "rect": {"x": 15, "y": 24, "width": 60, "height": 10}
+        }
+      ]
+    },
+
+    {
+      "title": "and many more",
+      "content": [
+        {
+          "type": "Paragraph",
+          "rect": { "x": 19, "y": 10, "width": 68, "height": 19},
+          "content": "▸ BarChart\n\n▸ Calendar\n\n▸ Chart\n\n▸ Clear\n\n▸ LineGauge\n\n▸ Gauge\n\n▸ Paragraph\n\n▸ Scrollbar",
+          "color": "#FFFFEE"
+        },
+        {
+          "type": "Paragraph",
+          "rect": { "x": 36, "y": 10, "width": 68, "height": 19},
+          "content": "▸ Tabs\n\n-------------------------------------\n\n▸ tui-menu\n\n▸ tui-nodes\n\n▸ tui-scrollview\n\n▸ tui-widget-list",
+          "color": "#FFFFEE"
+        },
+        {
+          "type": "Paragraph",
+          "rect": { "x": 58, "y": 14, "width": 68, "height": 19},
+          "content": "▸ ratatui-image\n\n▸ throbber-tui\n\n▸ tui-big-text\n\n▸ tui-logger",
+          "color": "#FFFFEE"
+        }
+      ]
+    },
+
+    {
+      "title": "",
+      "content": [
+        { "type": "BigText", "content": "SHOWCASE:", "rect": { "x": 28, "y": 16, "width": 35, "height": 22 } }
+      ]
+    },
+
+    {
+      "title": "Krabby-gotchi",
+      "content": [
+        { "type": "Image", "content": "./images/krabby.JPG", "rect": { "x": 28, "y": 9, "width": 35, "height": 22 } },
+        { "type": "Paragraph", 
+          "content": "🦀 Crustacious companion 🦀", 
+          "rect": { "x": 32, "y": 6, "width": 58, "height": 2 }, "color": "#FFFFFF"
+        },
+        { "type": "Line", "content": "https://github.com/DrCheeseFace/Krabby-gotchi", "rect": { "x": 24, "y": 31, "width": 65, "height": 1 }, "color": "#FFFF00"}
+      ]
+    },
+
+    {
+      "title": "AI SNAKE",
+      "content": [
+        { "type": "Image", "content": "./images/snake.png", "rect": { "x": 18, "y": 12, "width": 56, "height": 18 } },
+        { "type": "Paragraph", 
+          "content": "A neural network learns to play snakes in a terminal", 
+          "rect": { "x": 20, "y": 8, "width": 58, "height": 2 }, "color": "#FFFFFF"
+        },
+        { "type": "Line", "content": "https://github.com/bones-ai/rust-snake-ai-ratatui", "rect": { "x": 22, "y": 30, "width": 65, "height": 1 }, "color": "#FFFF00"}
+      ]
+    },
+
+    {
+      "title": "Bevy render",
+      "content": [
+        { "type": "Image", "content": "./images/bevy.png", "rect": { "x": 28, "y": 10, "width": 37, "height": 20 } },
+        { "type": "Paragraph", 
+          "content": "Bevy  inside the terminal", 
+          "rect": { "x": 34, "y": 7, "width": 58, "height": 2 }, "color": "#FFFFFF"
+        },
+        { "type": "Line", "content": "https://github.com/cxreiff/bevy_ratatui_render", "rect": { "x": 23, "y": 30, "width": 65, "height": 1 }, "color": "#FFFF00"}
+      ]
+    },
+
+    {
+      "title": "Openapi-tui",
+      "content": [
+        { "type": "Image", "content": "./images/openapi-tui.png", "rect": { "x": 12, "y": 12, "width": 66, "height": 17 } },
+        { "type": "Paragraph", 
+          "content": "Terminal UI to list, browse and run APIs \ndefined with OpenAPI v3.0 and v3.1 spec.", 
+          "rect": { "x": 25, "y": 7, "width": 58, "height": 2 }, "color": "#FFFFFF"
+        },
+        { "type": "Line", "content": "https://github.com/zaghaghi/openapi-tui", "rect": { "x": 27, "y": 31, "width": 65, "height": 1 }, "color": "#FFFF00"}
+      ]
+    },
+
+    {
+      "title": "Yazi",
+      "content": [
+        { "type": "Image", "content": "./images/yazi.png", "rect": { "x": 12, "y": 12, "width": 68, "height": 17 } },
+        { "type": "Paragraph", 
+          "content": "Yazi - ⚡️ Blazing Fast Terminal File Manager", 
+          "rect": { "x": 20, "y": 8, "width": 58, "height": 2 }, "color": "#FFFFFF"
+        },
+        { "type": "Line", "content": "https://github.com/sxyazi/yazi", "rect": { "x": 29, "y": 30, "width": 65, "height": 1 }, "color": "#FFFF00"}
+      ]
+    },
+
+    {
+      "title": "Iamb",
+      "content": [
+        { "type": "Image", "content": "./images/iamb.png", "rect": { "x": 12, "y": 10, "width": 66, "height": 21 } },
+        { "type": "Paragraph", 
+          "content": "Iamb - Matrix client that uses Vim keybindings", 
+          "rect": { "x": 22, "y": 7, "width": 58, "height": 2 }, "color": "#FFFFFF"
+        },
+        { "type": "Line", "content": "https://github.com/ulyssa/iamb", "rect": { "x": 31, "y": 31, "width": 65, "height": 1 }, "color": "#FFFF00"}
+      ]
+    },
+
+    {
+      "title": "",
+      "content": [
+        { "type": "BigText", "content": "AWESOME LIST:", "rect": { "x": 19, "y": 12, "width": 55, "height": 22 } },
+        { "type": "Paragraph", 
+          "content": "      List of TUI crates and applications \nthat are made for or using `ratatui` and `tui-rs`.", 
+          "rect": { "x": 22, "y": 18, "width": 58, "height": 2 }, "color": "#FFFFFF"
+        },
+        { "type": "Line", "content": "https://github.com/ratatui-org/awesome-ratatui", "rect": { "x": 22, "y": 22, "width": 65, "height": 1 }, "color": "#FFFF00"}
+      ]
+    },
+
+    {
+      "title": "",
+      "content": [
+        { "type": "Image", "content": "./images/ratatui.png", "rect": { "x": 8, "y": 13, "width": 19, "height": 12 }},
+        { "type": "Line", "content": "🧀 Ratatui 🧀", "rect": { "x": 35, "y": 13, "width": 25, "height": 1 }, "color": "#FFFF00"},
+        {
+          "type": "Paragraph",
+          "rect": { "x": 35, "y": 15, "width": 44, "height": 9 },
+          "content": "▸ 📁 github.com/ratatui-org/ratatui\n\n▸ 📒 github.com/ratatui-org\n\n▸ 📣 discord: https://discord.gg/pMCEU9hNEj\n\n▸ 🌐 http://ratatui.rs",
+          "color": "#FFFFEE"
+        }
       ]
     }
   ]
