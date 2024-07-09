@@ -5,6 +5,14 @@
   },
 
   "slides" : [
+
+    {
+      "title": "Block",
+      "content": [
+        {"type": "CodeHighlight", "content": "Block::new()\n.borders(Borders::ALL)\n.title(\"Block title\")", "rect": {"x": 10, "y": 10, "width": 40, "height": 10}}
+      ]
+    },
+
     {
       "title": "RATATUI",
       "content": [

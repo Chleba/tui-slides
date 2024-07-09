@@ -9,6 +9,10 @@ use ratatui::{
     widgets::{block::Title, *},
 };
 use ratatui_image::{picker::Picker, protocol::StatefulProtocol, Image, Resize, StatefulImage};
+use syntect::{
+    easy::HighlightLines, highlighting::ThemeSet, parsing::SyntaxSet, util::LinesWithEndings,
+};
+use syntect_tui::into_span;
 use tokio::sync::mpsc::UnboundedSender;
 use tui_big_text::{BigText, PixelSize};
 
@@ -185,11 +189,17 @@ impl Slides {
     fn make_slide_items<'a>(
         slide: &SlideJson,
         json_slides: String,
-    ) -> Vec<(ReturnSlideWidget<'a>, Option<Rect>, Option<Vec<u64>>)> {
+    ) -> Vec<(
+        ReturnSlideWidget<'a>,
+        String,
+        Option<Rect>,
+        Option<Vec<u64>>,
+    )> {
         let mut slide_items = vec![];
         for item in &slide.content {
             slide_items.push((
                 make_slide_content(item.clone(), json_slides.clone()),
+                get_slide_content_string(&item),
                 item.rect,
                 item.data.clone(),
             ));
@@ -251,7 +261,7 @@ impl Component for Slides {
 
         // -- render slide widgets
         let mut img_index = 0;
-        for (slide, r, d) in slide_items {
+        for (slide, c, r, d) in slide_items {
             let slide_rect = self.get_slide_rect(rect.content, r);
 
             let mut data = vec![];
@@ -292,6 +302,31 @@ impl Component for Slides {
                 ReturnSlideWidget::Sparkline(mut s) => {
                     s = s.data(&data);
                     f.render_widget(s, slide_rect);
+                }
+                ReturnSlideWidget::CodeHighlight(mut l) => {
+                    let ps = SyntaxSet::load_defaults_newlines();
+                    let ts = ThemeSet::load_defaults();
+                    let syntax = ps.find_syntax_by_extension("rs").unwrap();
+                    let mut h = HighlightLines::new(syntax, &ts.themes["base16-ocean.dark"]);
+
+                    let mut lines: Vec<Line> = vec![];
+                    let c_lines: Vec<&str> = c.split('\n').collect();
+
+                    for c_line in c_lines {
+                        for line in LinesWithEndings::from(c_line) {
+                            let l_spans: Vec<Span> = h
+                                .highlight_line(line, &ps)
+                                .unwrap()
+                                .into_iter()
+                                .filter_map(|seg| into_span(seg).ok())
+                                .collect();
+                            let line = Line::from(l_spans);
+                            lines.push(line);
+                        }
+                    }
+                    l = Paragraph::new(lines);
+
+                    f.render_widget(l, slide_rect);
                 }
             }
         }

@@ -137,6 +137,18 @@ pub fn make_slide_sparkline<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
     )
 }
 
+// -------------
+// -- CODE HIGHLIGHT
+// -------------
+pub fn make_slide_code_highlight<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
+    let content = get_slide_content_string(&slide);
+    let color = get_slide_content_color(&slide);
+
+    ReturnSlideWidget::CodeHighlight(Paragraph::new(content))
+}
+
+ 
+
 pub fn make_slide_content<'a>(
     slide_content: ContentJson,
     slide_path: String,
@@ -148,5 +160,6 @@ pub fn make_slide_content<'a>(
         SlideContentType::Image => make_slide_image(slide_content, slide_path),
         SlideContentType::Block => make_slide_block(slide_content),
         SlideContentType::Sparkline => make_slide_sparkline(slide_content),
+        SlideContentType::CodeHighlight => make_slide_code_highlight(slide_content),
     }
 }

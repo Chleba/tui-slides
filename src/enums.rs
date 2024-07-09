@@ -11,6 +11,8 @@ pub enum ReturnSlideWidget<'a> {
     Image(DynamicImage),
     Block(Block<'a>),
     Sparkline(Sparkline<'a>),
+    CodeHighlight(Paragraph<'a>),
+    // CodeHighlight(Line<'a>),
 }
 
 #[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]
@@ -21,6 +23,7 @@ pub enum SlideContentType {
     Image,
     Block,
     Sparkline,
+    CodeHighlight
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
