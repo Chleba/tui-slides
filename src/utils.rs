@@ -5,7 +5,7 @@ use directories::ProjectDirs;
 use lazy_static::lazy_static;
 use tracing::error;
 use tracing_error::ErrorLayer;
-use tracing_subscriber::{self, prelude::__tracing_subscriber_SubscriberExt, util::SubscriberInitExt, Layer};
+use tracing_subscriber::{self, layer::SubscriberExt, util::SubscriberInitExt, Layer};
 
 const VERSION_MESSAGE: &str =
   concat!(env!("CARGO_PKG_VERSION"), "-", env!("VERGEN_GIT_DESCRIBE"), " (", env!("VERGEN_BUILD_DATE"), ")");
@@ -55,7 +55,7 @@ pub fn initialize_panic_handler() -> Result<()> {
       eprintln!("{}", panic_hook.panic_report(panic_info)); // prints color-eyre stack trace to stderr
     }
     let msg = format!("{}", panic_hook.panic_report(panic_info));
-    log::error!("Error: {}", strip_ansi_escapes::strip_str(msg));
+    tracing::error!("Error: {}", strip_ansi_escapes::strip_str(msg));
 
     #[cfg(debug_assertions)]
     {
@@ -67,7 +67,7 @@ pub fn initialize_panic_handler() -> Result<()> {
         .create_panic_handler()(panic_info);
     }
 
-    std::process::exit(libc::EXIT_FAILURE);
+    std::process::exit(1);
   }));
   Ok(())
 }

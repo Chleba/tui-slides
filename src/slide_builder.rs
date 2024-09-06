@@ -82,8 +82,7 @@ fn make_slide_bigtext<'a>(slide: ContentJson) -> ReturnSlideWidget<'a> {
             .pixel_size(tui_big_text::PixelSize::Sextant)
             .lines(lines)
             .alignment(ratatui::layout::Alignment::Center)
-            .build()
-            .unwrap(),
+            .build(),
     )
 }
 
@@ -94,7 +93,7 @@ pub fn make_slide_image<'a>(slide: ContentJson, slide_path: String) -> ReturnSli
     let f_path = Path::new(&slide_path);
     let img_path = f_path.parent().unwrap();
     let content = get_slide_content_string(&slide);
-    let dyn_img = image::io::Reader::open(img_path.join(content))
+    let dyn_img = image::ImageReader::open(img_path.join(content))
         .unwrap()
         .decode()
         .unwrap();
@@ -146,8 +145,6 @@ pub fn make_slide_code_highlight<'a>(slide: ContentJson) -> ReturnSlideWidget<'a
 
     ReturnSlideWidget::CodeHighlight(Paragraph::new(content))
 }
-
- 
 
 pub fn make_slide_content<'a>(
     slide_content: ContentJson,

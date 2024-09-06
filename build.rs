@@ -1,4 +1,8 @@
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-  vergen::EmitBuilder::builder().all_build().all_git().emit()?;
-  Ok(())
+    let build = vergen_gix::BuildBuilder::all_build()?;
+    vergen_gix::Emitter::default()
+        .add_instructions(&build)?
+        .add_instructions(&vergen_gix::GixBuilder::all_git()?)?
+        .emit()?;
+    Ok(())
 }

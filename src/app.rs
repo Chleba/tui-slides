@@ -75,7 +75,7 @@ impl App {
                     tui::Event::Key(key) => {
                         if let Some(keymap) = self.config.keybindings.get(&self.mode) {
                             if let Some(action) = keymap.get(&vec![key]) {
-                                log::info!("Got action: {action:?}");
+                                tracing::info!("Got action: {action:?}");
                                 action_tx.send(action.clone())?;
                             } else {
                                 // If the key was not handled as a single key action,
@@ -84,7 +84,7 @@ impl App {
 
                                 // Check for multi-key combinations
                                 if let Some(action) = keymap.get(&self.last_tick_key_events) {
-                                    log::info!("Got action: {action:?}");
+                                    tracing::info!("Got action: {action:?}");
                                     action_tx.send(action.clone())?;
                                 }
                             }
@@ -101,7 +101,7 @@ impl App {
 
             while let Ok(action) = action_rx.try_recv() {
                 if action != Action::Tick && action != Action::Render {
-                    log::debug!("{action:?}");
+                    tracing::debug!("{action:?}");
                 }
                 match action {
                     Action::Tick => {
@@ -114,7 +114,7 @@ impl App {
                         tui.resize(Rect::new(0, 0, w, h))?;
                         tui.draw(|f| {
                             for component in self.components.iter_mut() {
-                                let r = component.draw(f, f.size());
+                                let r = component.draw(f, f.area());
                                 if let Err(e) = r {
                                     action_tx
                                         .send(Action::Error(format!("Failed to draw: {:?}", e)))
@@ -126,7 +126,7 @@ impl App {
                     Action::Render => {
                         tui.draw(|f| {
                             for component in self.components.iter_mut() {
-                                let r = component.draw(f, f.size());
+                                let r = component.draw(f, f.area());
                                 if let Err(e) = r {
                                     action_tx
                                         .send(Action::Error(format!("Failed to draw: {:?}", e)))

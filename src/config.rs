@@ -57,7 +57,7 @@ impl Config {
       }
     }
     if !found_config {
-      log::error!("No configuration file found. Application may not behave as expected");
+      tracing::error!("No configuration file found. Application may not behave as expected");
     }
 
     let mut cfg: Self = builder.build()?.try_deserialize()?;

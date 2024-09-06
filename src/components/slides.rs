@@ -139,12 +139,11 @@ impl Slides {
             title_text = title.to_string();
         }
 
-        let big_title = BigText::builder()
+        BigText::builder()
             .pixel_size(PixelSize::Sextant)
             .lines(vec![title_text.green().into()])
             .alignment(Alignment::Center)
-            .build();
-        big_title.unwrap()
+            .build()
     }
 
     fn make_block(title: Option<Line>) -> Block {
@@ -209,7 +208,7 @@ impl Slides {
 }
 
 impl Component for Slides {
-    fn init(&mut self, area: Rect, json_slides: String) -> Result<()> {
+    fn init(&mut self, area: Size, json_slides: String) -> Result<()> {
         self.json_slides = json_slides;
         self.picker.guess_protocol();
         self.get_json_slides();

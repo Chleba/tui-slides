@@ -7,42 +7,41 @@ license = "Apache-2.0"
 authors = ["Chleba <chlebik@gmail.com>"]
 build = "build.rs"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
+ratatui = { version = "0.28.1", features = ["serde", "macros", "unstable-widget-ref", "unstable"] }
+ratatui-image = { version = "1.0.5", features = ["crossterm"] }
+crossterm = { version = "0.28.1", features = ["serde", "event-stream"] }
+tui-big-text = "0.6.0"
 better-panic = "0.3.0"
-clap = { version = "4.4.5", features = ["derive", "cargo", "wrap_help", "unicode", "string", "unstable-styles"] }
-color-eyre = "0.6.2"
+syntect = "5.2.0"
+clap = { version = "4.5.17", features = ["derive", "cargo", "wrap_help", "unicode", "string", "unstable-styles"] }
 config = "0.14.0"
-crossterm = { version = "0.27.0", features = ["serde", "event-stream"] }
 derive_deref = "1.1.1"
 directories = "5.0.1"
 futures = "0.3.28"
-human-panic = "1.2.0"
+human-panic = "2.0.1"
+color-eyre = "0.6.2"
 dyn-clone = "1.0.11"
-rustix = { version = "^0.38.4", optional = true, features = ["stdio", "termios", "fs"]}
-image = "0.24.9"
+image = { version = "0.25.2", default-features = false, features = ["png", "jpeg"] }
 json5 = "0.4.1"
-lazy_static = "1.4.0"
-libc = "0.2.148"
-log = "0.4.20"
-pretty_assertions = "1.4.0"
-ratatui = { version = "0.26.2", features = ["serde", "macros", "unstable-widget-ref", "unstable"] }
-ratatui-image = { version = "1.0.0", features = ["crossterm"] }
-serde = { version = "1.0.188", features = ["derive"] }
-serde_json = "1.0.107"
+lazy_static = "1.5.0"
+serde = { version = "1.0.210", features = ["derive"] }
+serde_json = "1.0.128"
 signal-hook = "0.3.17"
 strip-ansi-escapes = "0.2.0"
-strum = { version = "0.26.1", features = ["derive"] }
-tokio = { version = "1.32.0", features = ["full"] }
-tokio-util = "0.7.9"
+strum = { version = "0.26.3", features = ["derive"] }
+tokio = { version = "1.40.0", features = ["full"] }
+tokio-util = "0.7.12"
 tracing = "0.1.37"
 tracing-error = "0.2.0"
 tracing-subscriber = { version = "0.3.17", features = ["env-filter", "serde"] }
-tui-big-text = "0.4.3"
-base64 = "0.22.1"
-syntect = "5.2.0"
-syntect-tui = "3.0.2"
+
+# https://github.com/chanq-io/syntect-tui/pull/6
+# syntect-tui = "3.0.3"
+syntect-tui = { git = "https://github.com/orhun/syntect-tui", branch = "chore/bump_dependencies" }
 
 [build-dependencies]
-vergen = { version = "8.2.6", features = [ "build", "git", "gitoxide", "cargo" ]}
+vergen-gix = { version = "1.0.1", features = ["build"] }
+
+[dev-dependencies]
+pretty_assertions = "1.4.0"
