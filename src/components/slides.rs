@@ -26,6 +26,13 @@ use crate::{
     },
 };
 
+type SlideItem<'a> = (
+    ReturnSlideWidget<'a>,
+    String,
+    Option<Rect>,
+    Option<Vec<u64>>,
+);
+
 pub struct Slides {
     action_tx: Option<UnboundedSender<Action>>,
     json_slides: String,
@@ -185,15 +192,7 @@ impl Slides {
             .border_type(BorderType::Rounded)
     }
 
-    fn make_slide_items<'a>(
-        slide: &SlideJson,
-        json_slides: String,
-    ) -> Vec<(
-        ReturnSlideWidget<'a>,
-        String,
-        Option<Rect>,
-        Option<Vec<u64>>,
-    )> {
+    fn make_slide_items<'a>(slide: &SlideJson, json_slides: String) -> Vec<SlideItem<'a>> {
         let mut slide_items = vec![];
         for item in &slide.content {
             slide_items.push((
