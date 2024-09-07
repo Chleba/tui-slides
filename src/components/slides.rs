@@ -198,7 +198,7 @@ impl Slides {
         for item in &slide.content {
             slide_items.push((
                 make_slide_content(item.clone(), json_slides.clone()),
-                get_slide_content_string(&item),
+                get_slide_content_string(item),
                 item.rect,
                 item.data.clone(),
             ));
