@@ -35,10 +35,7 @@ tokio-util = "0.7.12"
 tracing = "0.1.37"
 tracing-error = "0.2.0"
 tracing-subscriber = { version = "0.3.17", features = ["env-filter", "serde"] }
-
-# https://github.com/chanq-io/syntect-tui/pull/6
-# syntect-tui = "3.0.3"
-syntect-tui = { git = "https://github.com/orhun/syntect-tui", branch = "chore/bump_dependencies" }
+syntect-tui = "3.0.4"
 
 [build-dependencies]
 vergen-gix = { version = "1.0.1", features = ["build"] }
