@@ -1,5 +1,9 @@
 use image::DynamicImage;
-use ratatui::{layout::Rect, text::Line, widgets::{Block, Paragraph, Sparkline}};
+use ratatui::{
+    layout::Rect,
+    text::Line,
+    widgets::{Block, Paragraph, Sparkline},
+};
 use serde::{Deserialize, Serialize};
 use tui_big_text::BigText;
 
@@ -23,7 +27,7 @@ pub enum SlideContentType {
     Image,
     Block,
     Sparkline,
-    CodeHighlight
+    CodeHighlight,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
