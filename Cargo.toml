@@ -42,3 +42,6 @@ vergen-gix = { version = "1.0.1", features = ["build"] }
 
 [dev-dependencies]
 pretty_assertions = "1.4.0"
+
+[build]
+jobs = 4

@@ -31,7 +31,7 @@ lazy_static! {
 }
 
 fn project_directory() -> Option<ProjectDirs> {
-    ProjectDirs::from("com", "kdheepak", env!("CARGO_PKG_NAME"))
+    ProjectDirs::from("com", "chleba", env!("CARGO_PKG_NAME"))
 }
 
 pub fn initialize_panic_handler() -> Result<()> {
@@ -54,14 +54,11 @@ pub fn initialize_panic_handler() -> Result<()> {
 
         #[cfg(not(debug_assertions))]
         {
-            use human_panic::{handle_dump, print_msg, Metadata};
-            let meta = Metadata {
-                version: env!("CARGO_PKG_VERSION").into(),
-                name: env!("CARGO_PKG_NAME").into(),
-                authors: env!("CARGO_PKG_AUTHORS").replace(':', ", ").into(),
-                homepage: env!("CARGO_PKG_HOMEPAGE").into(),
-            };
-
+            use human_panic::{handle_dump, print_msg, metadata};
+            let meta = metadata!()
+                .authors("Chleba <chlebik@gmail.com>")
+                .homepage("https://github.com/Chleba/tui-slides")
+                .support("https://github.com/Chleba/tui-slides/issues");
             let file_path = handle_dump(&meta, panic_info);
             // prints human-panic message
             print_msg(file_path, &meta)
