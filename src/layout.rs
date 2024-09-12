@@ -34,8 +34,10 @@ fn get_centered_rect_percent(percent_x: u16, percent_y: u16, r: Rect) -> Rect {
 }
 
 fn get_centered_rect(width: u16, height: u16, area: Rect) -> Rect {
-    let x_axis = Layout::horizontal([Constraint::Percentage(50), Constraint::Percentage(50)]).split(area);
-    let y_axis = Layout::vertical([Constraint::Percentage(50), Constraint::Percentage(50)]).split(area);
+    let x_axis =
+        Layout::horizontal([Constraint::Percentage(50), Constraint::Percentage(50)]).split(area);
+    let y_axis =
+        Layout::vertical([Constraint::Percentage(50), Constraint::Percentage(50)]).split(area);
     Rect {
         x: x_axis[1].x - (width / 2),
         y: y_axis[1].y - ((height / 2) + 1),

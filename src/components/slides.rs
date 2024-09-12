@@ -26,6 +26,13 @@ use crate::{
     },
 };
 
+type SlideItem<'a> = (
+    ReturnSlideWidget<'a>,
+    String,
+    Option<Rect>,
+    Option<Vec<u64>>,
+);
+
 pub struct Slides {
     action_tx: Option<UnboundedSender<Action>>,
     json_slides: String,
@@ -139,12 +146,11 @@ impl Slides {
             title_text = title.to_string();
         }
 
-        let big_title = BigText::builder()
+        BigText::builder()
             .pixel_size(PixelSize::Sextant)
             .lines(vec![title_text.green().into()])
             .alignment(Alignment::Center)
-            .build();
-        big_title.unwrap()
+            .build()
     }
 
     fn make_block(title: Option<Line>) -> Block {
@@ -186,20 +192,12 @@ impl Slides {
             .border_type(BorderType::Rounded)
     }
 
-    fn make_slide_items<'a>(
-        slide: &SlideJson,
-        json_slides: String,
-    ) -> Vec<(
-        ReturnSlideWidget<'a>,
-        String,
-        Option<Rect>,
-        Option<Vec<u64>>,
-    )> {
+    fn make_slide_items<'a>(slide: &SlideJson, json_slides: String) -> Vec<SlideItem<'a>> {
         let mut slide_items = vec![];
         for item in &slide.content {
             slide_items.push((
                 make_slide_content(item.clone(), json_slides.clone()),
-                get_slide_content_string(&item),
+                get_slide_content_string(item),
                 item.rect,
                 item.data.clone(),
             ));
@@ -209,7 +207,7 @@ impl Slides {
 }
 
 impl Component for Slides {
-    fn init(&mut self, area: Rect, json_slides: String) -> Result<()> {
+    fn init(&mut self, area: Size, json_slides: String) -> Result<()> {
         self.json_slides = json_slides;
         self.picker.guess_protocol();
         self.get_json_slides();
